@@ -11,3 +11,10 @@ git-tree-sha1 = "acc4782f766c6d9582641b2d046dfb4bff67835f"
     [[p676.download]]
     sha256 = "b7e105447f32c12c01cdf6650e5b9001c519cb7aa2e5628fa04e28d5e7a25a3c"
     url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p676_data.tar.gz"
+
+[p837_R001]
+git-tree-sha1 = "a3f7ed63f6b1bf6da6763648d96118b16f8ccfd5"
+
+    [[p837_R001.download]]
+    sha256 = "1a8f66c64cdbca8357806e5735c7b375226f7ab0f8001695c31b4dbb2442f444"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p837_R001.tar.gz"
