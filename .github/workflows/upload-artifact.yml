@@ -125,6 +125,6 @@ jobs:
           
           This PR was automatically created by the artifact generation workflow.
         branch: update-artifacts-toml-${{ github.run_number }}
-        base: main
+        base: ${{ github.ref_name }}
         delete-branch: true
         draft: false 
