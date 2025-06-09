@@ -1,7 +1,5 @@
 export LatLon
 export IturEnum
-export EnumWater, EnumIce
-export EnumHeightAndIndex, EnumIndexOnly
 export EnumHorizontalPolarization, EnumVerticalPolarization, EnumCircularPolarization
 export ItuRVersion
 

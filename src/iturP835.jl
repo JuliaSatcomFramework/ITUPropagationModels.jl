@@ -8,6 +8,8 @@ the calculation of gaseous attenuation on Earth-space paths.
 using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon, _tokm
 using Artifacts
 
+export standardtemperature, standardpressure, standardwatervapourdensity
+
 const version = ItuRVersion("ITU-R", "P.835", 7, "(08/2024)")
 
 # Geometric height to geopotential height

@@ -2,18 +2,18 @@ name = "ITUPropagationModels"
 uuid = "17778021-2b2c-4ecf-610a-391273688f7f"
 authors = ["Alberto Mengali <disberd@gmail.com>", "Hillary Kchao <hillary.kchao@gmail.com>"]
 repo = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl"
-version = "0.3.0-DEV"
+version = "1.0.0-DEV"
 
 [deps]
 Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 
 [weakdeps]
-Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 CoordRefSystems = "b46f11dc-f210-4604-bfba-323c1ec968cb"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [extensions]
-UnitfulExt = "Unitful"
 CoordRefSystemsExt = "CoordRefSystems"
+UnitfulExt = "Unitful"
 
 [compat]
 Artifacts = "1"

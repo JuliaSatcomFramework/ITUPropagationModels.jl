@@ -57,12 +57,13 @@ end
 
 """
     rainfallrate001(latlon)
-    rainfallrate001(lat, lon)
+    rainfallrate001(lat::Number, lon::Number)
 
 Computes rainfall rate exceeded 0.01% via bi-linear interpolation as described in Annex 1.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 
 # Return
 - `R::Float64`: annual rainfall rate exceeded 0.01%

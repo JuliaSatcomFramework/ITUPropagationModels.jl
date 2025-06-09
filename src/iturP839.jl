@@ -29,12 +29,14 @@ const H0_DATA = SquareGridData(latrange, lonrange, read!(joinpath(artifact"p839"
 
 """
     rainheightannual(latlon::LatLon)
+    rainheightannual(lat::Number, lon::Number)
 
 Computes rain height based on the equation in Section 2.
 h0 will be interpolated for the given latitude and longitude.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 
 # Return
 - `hR`: mean annual rain height (km) above mean sea level
@@ -49,12 +51,14 @@ end
 
 """
     isothermheight(latlon)
+    isothermheight(lat::Number, lon::Number)
 
 Calculates isothermic height based on bilinear interpolation.
 h0 will be interpolated for the given latitude and longitude.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 
 # Return
 - `h0`: mean annual 0°C isotherm height (km) above mean sea level
