@@ -1,5 +1,8 @@
 # Main Functions
 
+!!! note
+    All functions support as input `Unitful.Quantity` values for frequency (e.g. `Hz`), angles (`°` or `rad`) and length (e.g. `m`, but only for values which are expected in `km` like the location altitude or the rain height `hᵣ`)
+
 The primary interface for calculating atmospheric attenuations.
 
 ## Primary Function
