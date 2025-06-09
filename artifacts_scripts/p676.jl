@@ -47,7 +47,7 @@ function create_p676_artifact()
                 println(io, "For both parts, the input frequency goes from 1 MHz to 350 MHz in steps of 0.5 MHz. For the Part 1, an additional line at 118.75 MHz is added, making the size different between Part1 and Part2 by 1")
                 println(io)
                 println(io, "This artifact was automatically generated using the script at the following URL:")
-                println(io, "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/blob/ITU_artifacts/scripts/p676.jl")
+                println(io, permalink("p676.jl"))
             end
 
             for part in parts
