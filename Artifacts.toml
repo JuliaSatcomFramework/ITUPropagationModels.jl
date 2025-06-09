@@ -25,3 +25,10 @@ git-tree-sha1 = "d412199ad2e1d04d87e38feaa9db6791701d815d"
     [[p839.download]]
     sha256 = "b7fcacd0024520d84b147364c75e64427f6fe8eaf9f2ce562f9f98b5dfc96bc9"
     url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p839.tar.gz"
+
+[p840_annual]
+git-tree-sha1 = "fa0085ce97db4bd9667cd4e28583a4e0915fdf62"
+
+    [[p840_annual.download]]
+    sha256 = "d0d80158b92ff735059f452598086e05cbb30b2976a2046279546ac1bb256986"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p840_2023_Part1_annual.tar.gz"
