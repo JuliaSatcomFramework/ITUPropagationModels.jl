@@ -1,48 +1,48 @@
 [p1511]
-git-tree-sha1 = "0fbedf0b723f5523f77f00b98ad5a6e4a8dc2da7"
+git-tree-sha1 = "63aba1b66f243f47130ec44caf90cf810c2af795"
 
     [[p1511.download]]
-    sha256 = "09c886a413312a128b1cac98b30cda9acb88f2d7d85c409d1251fc7a39bb30eb"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p1511_data.tar.gz"
+    sha256 = "a33fa76bc3088b80b4e51c83ee5ef25680cf715879a11415b2ef55d15a0b6001"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p1511_data.tar.gz"
 
 [p2145_annual]
-git-tree-sha1 = "6aa7e553e00304fd01f89bb7a9278d1a2b4905c2"
+git-tree-sha1 = "20910f2c2b90cd1dbb82988a93a53e2aab8fcd7f"
 
     [[p2145_annual.download]]
-    sha256 = "07420e6db86a41c3a8e7c6b1e89a0bb7715003d348f9b401aa68a4dd0dcb9d99"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p2145_2022_Part1_annual.tar.gz"
+    sha256 = "d99e8bed11dfb9c890c29f85d05db02ccc88db46abbb7e55af7770ef3b0f153f"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p2145_2022_Part1_annual.tar.gz"
 
 [p453_nwet_annual]
-git-tree-sha1 = "f3d58fae18a5660786f5c10d0a51f3c1e9bd5ff1"
+git-tree-sha1 = "b9f3a901ccf7a43525bab4c4cd3338f5e5d6a6aa"
 
     [[p453_nwet_annual.download]]
-    sha256 = "bfa0ae57a8e33316d1b473fb0fa0aff2d4c5b229c6f7808e666aecfe1ea80122"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p453_nwet_annual.tar.gz"
+    sha256 = "1137253c3bae6278427ec0488cb1d693774e25bf613af4c3d5d5ac56e7a43091"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p453_nwet_annual.tar.gz"
 
 [p676]
-git-tree-sha1 = "a21d87acc281d70dc82ff050ad23a39e60af962b"
+git-tree-sha1 = "acc4782f766c6d9582641b2d046dfb4bff67835f"
 
     [[p676.download]]
-    sha256 = "b8e9de886d893deb902d6bd4f137d18bc74cadaa1587af61a573b0947d5ff85d"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p676_data.tar.gz"
+    sha256 = "b7e105447f32c12c01cdf6650e5b9001c519cb7aa2e5628fa04e28d5e7a25a3c"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p676_data.tar.gz"
 
 [p837_R001]
-git-tree-sha1 = "af135bfd08b153149d8a141fceac2783930c40f0"
+git-tree-sha1 = "a3f7ed63f6b1bf6da6763648d96118b16f8ccfd5"
 
     [[p837_R001.download]]
-    sha256 = "771ca7196c7bbca924c67a94b5f428e7de4c9256464554b7277063eeb79e0096"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p837_R001.tar.gz"
+    sha256 = "1a8f66c64cdbca8357806e5735c7b375226f7ab0f8001695c31b4dbb2442f444"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p837_R001.tar.gz"
 
 [p839]
-git-tree-sha1 = "2f4c1f82dc8fd5affa973a0dd272555b65c8f1eb"
+git-tree-sha1 = "d412199ad2e1d04d87e38feaa9db6791701d815d"
 
     [[p839.download]]
-    sha256 = "c90a691aa7174171fd5707fa908a9db7a3d80d00dea39fba579fc299d33a846d"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p839.tar.gz"
+    sha256 = "b7fcacd0024520d84b147364c75e64427f6fe8eaf9f2ce562f9f98b5dfc96bc9"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p839.tar.gz"
 
 [p840_annual]
-git-tree-sha1 = "4c0426c8ad13e4007c2f63312b77356d0608d2ef"
+git-tree-sha1 = "fa0085ce97db4bd9667cd4e28583a4e0915fdf62"
 
     [[p840_annual.download]]
-    sha256 = "dfa21125aaf09df9c3bf5d4cd93dfe2474c03d7bea80159ea2acbb3ccf33f308"
-    url = "https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/releases/download/artifact_releases/p840_2023_Part1_annual.tar.gz"
+    sha256 = "d0d80158b92ff735059f452598086e05cbb30b2976a2046279546ac1bb256986"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p840_2023_Part1_annual.tar.gz"
