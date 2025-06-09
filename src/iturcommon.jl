@@ -31,7 +31,7 @@ end
 
 This function converts the location input to a `LatLon` object, by default by calling `convert(LatLon, location)`.
 
-Custom location types that want to implement the interface of ItuRPropagation should override the `ItuRPropagation.tolatlon` method to return a `LatLon` object, and optionally the `ItuRPropagation.altitude_from_location` method if they already store information about the location altitude.
+Custom location types that want to implement the interface of ITUPropagationModels should override the `ITUPropagationModels.tolatlon` method to return a `LatLon` object, and optionally the `ITUPropagationModels.altitude_from_location` method if they already store information about the location altitude.
 """
 @inline tolatlon(x) = convert(LatLon, x)::LatLon # Type assertion on convert is used to help compiler, see https://github.com/JuliaLang/julia/issues/42372 for more details
 
@@ -40,9 +40,9 @@ Custom location types that want to implement the interface of ItuRPropagation sh
 
 This function tries to extract the altitude **(in km)** from the location input provided.
 
-It defaults to converting the location to `latlon` with `ItuRPropagation.tolatlon` and then calling `ItuRP1511.topographicheight` on it.
+It defaults to converting the location to `latlon` with `ITUPropagationModels.tolatlon` and then calling `ItuRP1511.topographicheight` on it.
 
-Custom location types that want to implement the interface of ItuRPropagation should override the `ItuRPropagation.tolatlon` method, and optionally the `ItuRPropagation.altitude_from_location` method if they already store information about the location altitude.
+Custom location types that want to implement the interface of ITUPropagationModels should override the `ITUPropagationModels.tolatlon` method, and optionally the `ITUPropagationModels.altitude_from_location` method if they already store information about the location altitude.
 """
 @inline altitude_from_location(location) = ItuRP1511.topographicheight(tolatlon(location))
 

@@ -20,7 +20,7 @@ d) a Weibull approximation to the slant path water vapour attenuation for use in
 The current implementation only covers points a) and c) in the above list
 =#
 
-using ..ItuRPropagation: _todeg, ItuRP835, ItuRP453, ItuRVersion, ItuRP1511, LatLon, ItuRP2145, _toghz
+using ..ITUPropagationModels: _todeg, ItuRP835, ItuRP453, ItuRVersion, ItuRP1511, LatLon, ItuRP2145, _toghz
 using Artifacts
 const version = ItuRVersion("ITU-R", "P.676", 13, "(08/2022)")
 
@@ -600,7 +600,7 @@ More specifically this computes ``Ag = Ao + Aw`` implementing:
 - Equation 40 in Section 2.3 for Water vapour attenuation `Aw`
 
 # Arguments
-- `latlon`: Object specifying the latitude and longitude of the location of interest, must be an object that can be converted to an instance of `ItuRPropagation.LatLon`
+- `latlon`: Object specifying the latitude and longitude of the location of interest, must be an object that can be converted to an instance of `ITUPropagationModels.LatLon`
 - `f`: frequency (GHz)
 - `el`: elevation angle (degrees)
 

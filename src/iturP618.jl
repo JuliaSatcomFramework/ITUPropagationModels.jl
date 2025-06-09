@@ -5,7 +5,7 @@ This Recommendation predicts the various propagation parameters needed in planni
 systems operating in either the Earth-to-space or space-to-Earth direction.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, tolatlon, _tokm, _todeg, _toghz, SUPPRESS_WARNINGS, IturEnum, tilt_from_polarization, _validel, ItuRP840, ItuRP676, ItuRP453, ItuRP838, ItuRP837, ItuRP1511, ItuRP839, EnumCircularPolarization, altitude_from_location
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon, _tokm, _todeg, _toghz, SUPPRESS_WARNINGS, IturEnum, tilt_from_polarization, _validel, ItuRP840, ItuRP676, ItuRP453, ItuRP838, ItuRP837, ItuRP1511, ItuRP839, EnumCircularPolarization, altitude_from_location
 using Artifacts
 
 const version = ItuRVersion("ITU-R", "P.618", 14, "(08/2023)")
@@ -26,7 +26,7 @@ const Rₑ = 8500 # effective radius of the Earth (km)
 Computes scintillation attenuation based on Section 2.4.1.
     
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 - `f::Real`: frequency (GHz)
 - `el::Real`: elevation angle (degrees)
 - `p::Real`: exceedance probability (%)
@@ -114,7 +114,7 @@ end
 Computes rain attenuation based on Section 2.2.1.1.
     
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 - `f::Real`: frequency (GHz),
 - `el::Real`: elevation angle (degrees)
 - `p::Real`: exceedance probability (%)
@@ -247,7 +247,7 @@ end
 Computes the various attenuations for earth/space links based on Section 2.4.1 of ITU-R P618-13.
     
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 - `f`: frequency (GHz)
 - `el`: elevation angle (degrees)
 - `p`: exceedance probability (%)

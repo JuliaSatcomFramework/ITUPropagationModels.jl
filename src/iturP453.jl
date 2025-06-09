@@ -7,7 +7,7 @@ Recommendation ITU-R P.453 provides methods to estimate the radio refractive ind
  parameters and their statistical variation.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, tolatlon, _tokm, IturEnum, EnumWater, EnumIce, SUPPRESS_WARNINGS
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon, _tokm, IturEnum, EnumWater, EnumIce, SUPPRESS_WARNINGS
 using ..ItuRP1144: ItuRP1144, AbstractSquareGridITP, SquareGridData, SquareGridStatisticalData
 using Artifacts
 const version = ItuRVersion("ITU-R", "P.453", 14, "(08/2019)")
@@ -133,7 +133,7 @@ end
 Interpolates wet term of the surface refractivity at an exceedance probability `p` provided as input in % based on Section 2.2.
 
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 - `p`: exceedance probability (%)   
 
 # Return

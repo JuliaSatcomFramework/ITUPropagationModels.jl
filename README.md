@@ -1,25 +1,22 @@
-# ItuRPropagations
-[![Build Status](https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/actions/workflows/CI.yml?query=branch%3Amaster)
-[![Coverage](https://codecov.io/gh/JuliaSatcomFramework/ItuRPropagation.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSatcomFramework/ItuRPropagation.jl)
+# ITUPropagationModelss
+[![Build Status](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml?query=branch%3Amaster)
+[![Coverage](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 A Julia implementation of some of the ITU-Recommendations for space links covering cloud, gaseous, rain, and scintillation attenuations.
 
 > [!NOTE]
-> This is a fork of the original repository aimed at adding some functionality and reducing allocations to speed up the computations. This version will be for the time being increased in version and tracked on a private registry for internal use. Inclusion of the changes in this repo to the upstream repository will be done if the original author @HillaryKChao agrees.
-
-> [!WARNING]
-> This fork also includes a force push to delete the big files used as input and previously stored inside the `src/data` folder from the git history. This to avoid downloading >100Mb of data at each git clone of the package
+> This repository started as a fork of https://github.com/HillaryKchao/ItuRPropagation.jl mostly to improve performance of the code and avoid storing assets directly in the git history. The original fork is still hosted in a separate repository at https://github.com/JuliaSatcomFramework/ItuRPropagation.jl but I decided to change name and UUID of the package due to significant breaking changes in June 2025 and the rewrite in git history that this repo went through to avoid downloading >100Mb of data for each `git clone`
 
 ## Installation
 This fork is not currently registered in the general registry (while the original repository is).
 To add it, you have then to explicitly point to this repository with the folloing command in the `Pkg` repl mode
 ```
-add https://github.com/disberd/ItuRPropagation.jl
+add https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl
 ```
 You can check if installation was successful by exiting the package manager and using
 ```
-using ItuRPropagation
+using ITUPropagationModels
 ```
 
 ## ITU-R Recommendations

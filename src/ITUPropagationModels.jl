@@ -1,4 +1,4 @@
-module ItuRPropagation
+module ITUPropagationModels
 
 using Artifacts
 
@@ -46,4 +46,4 @@ using .ItuRP618: attenuations
 #endregion include
 
 
-end # module ItuRPropagation
+end # module ITUPropagationModels

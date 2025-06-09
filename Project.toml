@@ -1,7 +1,7 @@
-name = "ItuRPropagation"
-uuid = "a73e506c-35e8-47b2-857c-dfce7ead1349"
-authors = ["Hillary Kchao <hillary.kchao@gmail.com>", "Alberto Mengali <disberd@gmail.com>"]
-repo = "https://github.com/disberd/ItuRPropagation.jl"
+name = "ITUPropagationModels"
+uuid = "17778021-2b2c-4ecf-610a-391273688f7f"
+authors = ["Alberto Mengali <disberd@gmail.com>", "Hillary Kchao <hillary.kchao@gmail.com>"]
+repo = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl"
 version = "0.3.0-DEV"
 
 [deps]
