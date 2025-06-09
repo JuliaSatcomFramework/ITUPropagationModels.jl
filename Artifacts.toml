@@ -1,0 +1,6 @@
+[p453_nwet_annual]
+git-tree-sha1 = "b9f3a901ccf7a43525bab4c4cd3338f5e5d6a6aa"
+
+    [[p453_nwet_annual.download]]
+    sha256 = "1137253c3bae6278427ec0488cb1d693774e25bf613af4c3d5d5ac56e7a43091"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p453_nwet_annual.tar.gz"
