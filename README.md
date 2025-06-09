@@ -35,5 +35,7 @@ The following ITU-R Recommendations are implemented at least in part:
 *   **ITU-R P.1511-3:** Topography for Earth-to-space propagation modelling
 *   **ITU-R P.2145-0:** Digital maps related to the calculation of gaseous attenuation and related effects
 
+The auxiliary data required by some of the above recommendations is stored into artifacts automatically generated in CI using the scripts located in the `artifacts_scripts` folder, and stored as assets of the [Artifacts Release](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/tag/artifacts_releases)
+
 ##  Validation
 This implementation has been validated using the [ITU Validation examples (rev 8.3.0)](https://www.itu.int/en/ITU-R/study-groups/rsg3/ionotropospheric/CG-3M3J-13-ValEx-Rev8.3.0.xlsx).
