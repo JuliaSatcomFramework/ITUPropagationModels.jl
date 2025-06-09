@@ -592,6 +592,7 @@ end
 
 """
     Ag = gaseousattenuation(latlon, f, el, p; alt = nothing, gamma_oxygen = nothing, γₒ = nothing)
+    gaseousattenuation(lat::Number, lon::Number, args...; kwargs...)
 
 Computes the statistical gaseous attenuation for a slant path following the approximate computation specified in Annex 2 of ITU-R P.676-13.
 
@@ -601,6 +602,7 @@ More specifically this computes ``Ag = Ao + Aw`` implementing:
 
 # Arguments
 - `latlon`: Object specifying the latitude and longitude of the location of interest, must be an object that can be converted to an instance of `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `f`: frequency (GHz)
 - `el`: elevation angle (degrees)
 

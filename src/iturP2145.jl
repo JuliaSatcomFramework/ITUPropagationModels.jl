@@ -162,8 +162,9 @@ end
 #endregion initialization
 
 """
-    T̄ₛ = surfacetemperatureannual(latlon::LatLon; alt = nothing)
-    Tₛ(p) = surfacetemperatureannual(latlon::LatLon, p::Real; alt = nothing)
+    T̄ₛ = surfacetemperatureannual(latlon; alt = nothing)
+    Tₛ(p) = surfacetemperatureannual(latlon, p::Real; alt = nothing)
+    surfacetemperatureannual(lat::Number, lon::Number, args...; kwargs...)
 
 Computes annual surface temperature based Section 2 of the P2145-0
 Recommendation and assuming the surface to be located at `alt` km above sea
@@ -178,7 +179,8 @@ target exceedance probability and the function will follow the procedure
 described in Section 2.1 of the P2145-0 Recommendation.
 
 # Arguments
-- `latlon::LatLon`: latitude and longitude (degrees)
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p::Real`: exceedance probability (%)
 
 # Keyword Arguments
@@ -190,8 +192,9 @@ described in Section 2.1 of the P2145-0 Recommendation.
 surfacetemperatureannual(args...; kwargs...) = getvariable(Val(:T))(args...; kwargs...)
 
 """
-    ρ̄ₛ = surfacewatervapourdensityannual(latlon::LatLon; alt = nothing)
-    ρₛ(p) = surfacewatervapourdensityannual(latlon::LatLon, p::Real; alt = nothing)
+    ρ̄ₛ = surfacewatervapourdensityannual(latlon; alt = nothing)
+    ρₛ(p) = surfacewatervapourdensityannual(latlon, p::Real; alt = nothing)
+    surfacewatervapourdensityannual(lat::Number, lon::Number, args...; kwargs...)
 
 Computes annual surface water vapour density based Section 2 of the P2145-0
 Recommendation and assuming the surface to be located at `alt` km above sea
@@ -206,7 +209,8 @@ target exceedance probability and the function will follow the procedure
 described in Section 2.1 of the P2145-0 Recommendation.
 
 # Arguments
-- `latlon::LatLon`: latitude and longitude (degrees)
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p::Real`: exceedance probability (%)
 
 # Keyword Arguments
@@ -218,8 +222,9 @@ described in Section 2.1 of the P2145-0 Recommendation.
 surfacewatervapourdensityannual(args...; kwargs...) = getvariable(Val(:RHO))(args...; kwargs...)
 
 """
-    P̄ₛ = surfacepressureannual(latlon::LatLon; alt = nothing)
-    Pₛ(p) = surfacepressureannual(latlon::LatLon, p::Real; alt = nothing)
+    P̄ₛ = surfacepressureannual(latlon; alt = nothing)
+    Pₛ(p) = surfacepressureannual(latlon, p::Real; alt = nothing)
+    surfacepressureannual(lat::Number, lon::Number, args...; kwargs...)
 
 Computes annual surface total barometric pressure based Section 2 of the P2145-0
 Recommendation and assuming the surface to be located at `alt` km above sea
@@ -234,7 +239,8 @@ target exceedance probability and the function will follow the procedure
 described in Section 2.1 of the P2145-0 Recommendation. 
 
 # Arguments
-- `latlon::LatLon`: latitude and longitude (degrees)
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p::Real`: exceedance probability (%)
 
 # Keyword Arguments
@@ -247,8 +253,9 @@ surfacepressureannual(args...; kwargs...) = getvariable(Val(:P))(args...; kwargs
 
 
 """
-    V̄ₛ = surfacewatervapourcontentannual(latlon::LatLon; alt = nothing)
-    Vₛ(p) = surfacewatervapourcontentannual(latlon::LatLon, p::Real; alt = nothing)
+    V̄ₛ = surfacewatervapourcontentannual(latlon; alt = nothing)
+    Vₛ(p) = surfacewatervapourcontentannual(latlon, p::Real; alt = nothing)
+    surfacewatervapourcontentannual(lat::Number, lon::Number, args...; kwargs...)
 
 Computes annual surface integrated water vapour content based Section 2 of the P2145-0
 Recommendation and assuming the surface to be located at `alt` km above sea
@@ -263,7 +270,8 @@ target exceedance probability and the function will follow the procedure
 described in Section 2.1 of the P2145-0 Recommendation.
 
 # Arguments
-- `latlon::LatLon`: latitude and longitude (degrees)
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p::Real`: exceedance probability (%)      
 
 # Keyword Arguments

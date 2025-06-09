@@ -131,11 +131,13 @@ end
 
 """
     liquidwatercontent(latlon, p)
+    liquidwatercontent(lat::Number, lon::Number, args...; kwargs...)
 
 Computes the integrated liquid water content at a given location and exceedance probability based on the digital annual maps in Part 1 of the Recommendation P.840-8.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p`: exceedance probability (%)   
 """
 function liquidwatercontent(latlon, p; warn=!SUPPRESS_WARNINGS[])
@@ -149,11 +151,13 @@ end
 
 """
     cloudattenuation(latlon, f, elevation, p)
+    cloudattenuation(lat::Number, lon::Number, args...; kwargs...)
 
 Computes annual cloud attenuation along a slant path based on Section 3. 
     
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `f`: frequency (GHz)
 - `el`: elevation angle (degrees)
 - `p`: exceedance probability (%)

@@ -37,13 +37,14 @@ const GRID_DATA = (;
 #endregion initialization
 
 """
-    topographicheight(latlon::LatLon)
-    topographicheight(lat, lon)
+    topographicheight(latlon)
+    topographicheight(lat::Number, lon::Number)
 
 Calculates topographic height as per Section 1.1 of ITU-R P.1511-3.
 
 # Arguments
-- `latlon::LatLon`: latitude and longitude (degrees)
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 
 # Return
 - `I::Real`: height (km)

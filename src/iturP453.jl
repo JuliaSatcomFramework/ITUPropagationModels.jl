@@ -129,11 +129,13 @@ end
 
 """
     wettermsurfacerefractivityannual(latlon, p)
+    wettermsurfacerefractivityannual(lat::Number, lon::Number, args...; kwargs...)
 
 Interpolates wet term of the surface refractivity at an exceedance probability `p` provided as input in % based on Section 2.2.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `p`: exceedance probability (%)   
 
 # Return
@@ -150,8 +152,13 @@ end
 
 """
     wettermsurfacerefractivityannual_50(latlon)
+    wettermsurfacerefractivityannual_50(lat::Number, lon::Number, args...; kwargs...)
 
 Returns the wet term of surface refractivity at 50% exceedance probability (Based on annual data) at the desired location
+
+# Arguments
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 """
 function wettermsurfacerefractivityannual_50(latlon)
     ccdf = @something(NWET_ANNUAL.ccdf,let
