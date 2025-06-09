@@ -7,7 +7,7 @@ DocMeta.setdocmeta!(ITUPropagationModels, :DocTestSetup, :(using ITUPropagationM
 makedocs(;
     modules=[ITUPropagationModels],
     authors="Alberto Mengali <disberd@gmail.com>",
-    repo="https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/blob/{commit}{path}#{line}",
+    repo=Remotes.GitHub("JuliaSatcomFramework", "ITUPropagationModels.jl"),
     sitename="ITUPropagationModels.jl",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
