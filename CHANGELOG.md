@@ -4,6 +4,6 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
-## 1.0.0
+## 1.0.0 - 2025-06-09
 
 First release of `ITUPropagationModels`, see https://github.com/JuliaSatcomFramework/ItuRPropagation.jl for more insights on PRs and changes on the original repository before the package names was changed.
