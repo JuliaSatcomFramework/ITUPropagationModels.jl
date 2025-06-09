@@ -6,7 +6,6 @@ version = "1.0.0-DEV"
 
 [deps]
 Artifacts = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
-LiveServer = "16fef848-5104-11e9-1b77-fb7a48bbb589"
 
 [weakdeps]
 CoordRefSystems = "b46f11dc-f210-4604-bfba-323c1ec968cb"
@@ -19,6 +18,5 @@ UnitfulExt = "Unitful"
 [compat]
 Artifacts = "1"
 CoordRefSystems = "0.14 - 0.17"
-LiveServer = "1.5.0"
 Unitful = "1.23.0"
 julia = "1.10"

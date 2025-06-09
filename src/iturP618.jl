@@ -22,11 +22,13 @@ const Rₑ = 8500 # effective radius of the Earth (km)
 
 """
     scintillationattenuation(latlon::LatLon, f::Real, el::Real, p::Real; D::Real=1.0, η::Real=60.0)
+    scintillationattenuation(lat::Number, lon::Number, args...; kwargs...)
 
 Computes scintillation attenuation based on Section 2.4.1.
     
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
+  - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `f::Real`: frequency (GHz)
 - `el::Real`: elevation angle (degrees)
 - `p::Real`: exceedance probability (%)
