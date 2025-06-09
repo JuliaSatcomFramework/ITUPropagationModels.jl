@@ -4,7 +4,7 @@ module ItuRP839
 This Recommendation provides a method to predict the rain height for propagation prediction.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, tolatlon, _tokm, _toghz, SUPPRESS_WARNINGS
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon, _tokm, _toghz, SUPPRESS_WARNINGS
 using ..ItuRP1144: ItuRP1144, AbstractSquareGridITP, SquareGridData, SquareGridStatisticalData
 using Artifacts
 const version = ItuRVersion("ITU-R", "P.839", 4, "(09/2013)")
@@ -34,7 +34,7 @@ Computes rain height based on the equation in Section 2.
 h0 will be interpolated for the given latitude and longitude.
 
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 
 # Return
 - `hR`: mean annual rain height (km) above mean sea level
@@ -54,7 +54,7 @@ Calculates isothermic height based on bilinear interpolation.
 h0 will be interpolated for the given latitude and longitude.
 
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 
 # Return
 - `h0`: mean annual 0°C isotherm height (km) above mean sea level

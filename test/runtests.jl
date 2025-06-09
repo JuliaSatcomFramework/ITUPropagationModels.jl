@@ -1,7 +1,7 @@
 using TestItemRunner
 
 @testsnippet setup_common begin
-    using ItuRPropagation
+    using ITUPropagationModels
     using Test
     using XLSX
     validation_file = joinpath(@__DIR__, "CG-3M3J-13-ValEx-Rev8.3.0.xlsx")
@@ -10,8 +10,8 @@ using TestItemRunner
 end
 @testitem "Aqua" begin
     using Aqua
-    using ItuRPropagation
-    Aqua.test_all(ItuRPropagation)
+    using ITUPropagationModels
+    Aqua.test_all(ITUPropagationModels)
 end
 
 @run_package_tests verbose=true

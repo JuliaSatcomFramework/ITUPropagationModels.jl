@@ -5,7 +5,7 @@ Recommendation ITU-R P.835 provides expressions and data for reference standard 
 the calculation of gaseous attenuation on Earth-space paths.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, tolatlon, _tokm
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon, _tokm
 using Artifacts
 
 const version = ItuRVersion("ITU-R", "P.835", 7, "(08/2024)")

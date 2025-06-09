@@ -6,7 +6,7 @@ temperature, surface water vapour density and integrated water vapour content re
 gaseous attenuation and related effects on terrestrial and Earth-space paths.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, ItuRP1511, ItuRP1144, tolatlon, _tokm, SUPPRESS_WARNINGS, altitude_from_location
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, ItuRP1511, ItuRP1144, tolatlon, _tokm, SUPPRESS_WARNINGS, altitude_from_location
 using Artifacts: Artifacts, @artifact_str
 
 # Exports and constructor with separate latitude and longitude arguments

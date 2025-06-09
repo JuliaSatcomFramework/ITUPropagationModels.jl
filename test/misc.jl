@@ -34,7 +34,7 @@ end
     @test_logs ItuRP618.attenuations(LatLon(0, 0), 30, 10, 0.001; D = 1)
 
     # Test suppression of warnings
-    ItuRPropagation.SUPPRESS_WARNINGS[] = true
+    ITUPropagationModels.SUPPRESS_WARNINGS[] = true
     try
         @test_logs ItuRP840.cloudattenuation(LatLon(0, 0), 1000, 30, 5)
         @test_logs ItuRP840.cloudattenuation(LatLon(0, 0), 100, 1, 1)
@@ -55,7 +55,7 @@ end
         @test_logs ItuRP618.scintillationattenuation(LatLon(0, 0), 30, 1, 1)
         @test_logs ItuRP618.scintillationattenuation(LatLon(0, 0), 30, 20, 1; efficiency = .5)
     finally
-        ItuRPropagation.SUPPRESS_WARNINGS[] = false
+        ITUPropagationModels.SUPPRESS_WARNINGS[] = false
     end
 end
 
@@ -120,10 +120,10 @@ end
     end
     lla = LLA(π/6, π/4, 1200)
     Base.convert(::Type{LatLon}, lla::LLA) = LatLon(lla.lat |> rad2deg, lla.lon |> rad2deg)
-    ItuRPropagation.altitude_from_location(lla::LLA) = lla.alt / 1e3
+    ITUPropagationModels.altitude_from_location(lla::LLA) = lla.alt / 1e3
 
     alt_1511 = ItuRP1511.topographicheight(lla)
-    @test ItuRPropagation.altitude_from_location(lla) != alt_1511
+    @test ITUPropagationModels.altitude_from_location(lla) != alt_1511
 
     atts = ItuRP618.attenuations(lla, 30, 20, 1; D = 1)
     bench_wrongalt = ItuRP618.attenuations(LatLon(30, 45), 30, 20, 1; D = 1)
@@ -172,7 +172,7 @@ end
     lla = LatLonAlt(ll.lat, ll.lon, 1200u"m")
 
     alt_1511 = ItuRP1511.topographicheight(ll)
-    @test ItuRPropagation.altitude_from_location(lla) != alt_1511
+    @test ITUPropagationModels.altitude_from_location(lla) != alt_1511
 
     atts_lla = ItuRP618.attenuations(lla, 30, 20, 1; D = 1)
     atts_ll = ItuRP618.attenuations(ll, 30, 20, 1; D = 1)

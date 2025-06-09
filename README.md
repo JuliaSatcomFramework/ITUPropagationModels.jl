@@ -1,6 +1,6 @@
-# ItuRPropagations
-[![Build Status](https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ItuRPropagation.jl/actions/workflows/CI.yml?query=branch%3Amaster)
-[![Coverage](https://codecov.io/gh/JuliaSatcomFramework/ItuRPropagation.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSatcomFramework/ItuRPropagation.jl)
+# ITUPropagationModelss
+[![Build Status](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml?query=branch%3Amaster)
+[![Coverage](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 A Julia implementation of some of the ITU-Recommendations for space links covering cloud, gaseous, rain, and scintillation attenuations.
@@ -15,11 +15,11 @@ A Julia implementation of some of the ITU-Recommendations for space links coveri
 This fork is not currently registered in the general registry (while the original repository is).
 To add it, you have then to explicitly point to this repository with the folloing command in the `Pkg` repl mode
 ```
-add https://github.com/disberd/ItuRPropagation.jl
+add https://github.com/disberd/ITUPropagationModels.jl
 ```
 You can check if installation was successful by exiting the package manager and using
 ```
-using ItuRPropagation
+using ITUPropagationModels
 ```
 
 ## ITU-R Recommendations

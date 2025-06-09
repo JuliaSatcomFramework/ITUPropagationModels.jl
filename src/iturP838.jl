@@ -5,7 +5,7 @@ Recommendation ITU-R P.838-3 recommends the procedure for obtaining the
  specific attenuation (gamma sub R in dB/km) from the rain rate R (mm/h).
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, _todeg, SUPPRESS_WARNINGS, tilt_from_polarization, IturEnum, _toghz, EnumCircularPolarization, _validel
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, _todeg, SUPPRESS_WARNINGS, tilt_from_polarization, IturEnum, _toghz, EnumCircularPolarization, _validel
 using Artifacts
 
 const version = ItuRVersion("ITU-R", "P.838", 8, "03/2005")

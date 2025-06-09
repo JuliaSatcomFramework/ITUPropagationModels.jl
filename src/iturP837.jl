@@ -15,7 +15,7 @@ When reliable long-term local rainfall rate data is available with integration t
  times that exceed 1-min to rainfall rate statistics with a 1-min integration time.
 =#
 
-using ..ItuRPropagation: ItuRPropagation, LatLon, ItuRVersion, tolatlon
+using ..ITUPropagationModels: ITUPropagationModels, LatLon, ItuRVersion, tolatlon
 using ..ItuRP1144: ItuRP1144, SquareGridData
 using Artifacts
 
@@ -62,7 +62,7 @@ end
 Computes rainfall rate exceeded 0.01% via bi-linear interpolation as described in Annex 1.
 
 # Arguments
-- `latlon`: object representing latitude and longitude, must be convertible to `ItuRPropagation.LatLon`
+- `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
 
 # Return
 - `R::Float64`: annual rainfall rate exceeded 0.01%
