@@ -1,4 +1,4 @@
-# ITUPropagationMo
+# ITUPropagationModels
 [![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliasatcomframework.github.io/ITUPropagationModels.jl/stable)
 [![Docs Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://juliasatcomframework.github.io/ITUPropagationModels.jl/dev)
 [![Build Status](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml?query=branch%3Amain)
