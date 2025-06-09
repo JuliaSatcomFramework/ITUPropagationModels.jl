@@ -15,13 +15,13 @@ Pkg.add(url="https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl")
 using ITUPropagationModels
 
 # Calculate atmospheric attenuation for a satellite link
-lat, lon = 45.0, 10.0  # Location coordinates
+latlon = LatLon(45, 10)  # Location coordinates
 frequency = 20.0       # GHz
 elevation = 30.0       # degrees
 probability = 0.01     # % exceedance
 
-# Get all atmospheric attenuations
-result = attenuations(lat, lon, frequency, elevation, probability)
+# Get all atmospheric attenuations, assume 1m diameter (only used for scintillation attenuation)
+result = attenuations(latlon, frequency, elevation, probability; D = 1)
 
 println("Total attenuation: $(result.total) dB")
 ```
