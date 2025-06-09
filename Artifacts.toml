@@ -1,3 +1,10 @@
+[p1511]
+git-tree-sha1 = "63aba1b66f243f47130ec44caf90cf810c2af795"
+
+    [[p1511.download]]
+    sha256 = "a33fa76bc3088b80b4e51c83ee5ef25680cf715879a11415b2ef55d15a0b6001"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p1511_data.tar.gz"
+
 [p453_nwet_annual]
 git-tree-sha1 = "b9f3a901ccf7a43525bab4c4cd3338f5e5d6a6aa"
 
