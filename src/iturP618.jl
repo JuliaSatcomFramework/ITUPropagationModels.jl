@@ -229,6 +229,9 @@ Combines the various attenuations into a total attenuation following the formula
 At = Ag + \\sqrt{(Ar + Ac)^2 + As^2}
 ```
 
+!!! note
+    This function does not compute the attenuations itself, it's just a way to sum computed attenuations of the various components following the formula from ITU-R P618-14 (Eq 65-66).
+
 This function does not take the outage probability as input, it just assumes that `Ar` will be 0 for `p > 5%`.
 
 # Arguments
@@ -249,7 +252,7 @@ end
     attenuations(latlon, f, el, p; D, η, alt, polarization, polarization_angle, warn, extra_kwargs...)
     attenuations(lat::Number, lon::Number, args...; kwargs...)
 
-Computes the various attenuations for earth/space links based on Section 2.4.1 of ITU-R P618-13.
+Computes the various attenuations for earth/space links based on Section 2.4.1 of ITU-R P618-14.
     
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
