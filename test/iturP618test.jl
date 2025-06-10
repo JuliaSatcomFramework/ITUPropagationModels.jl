@@ -202,4 +202,34 @@ end
         end
     end
 
+    # We test that by default at p > 50 we return 0.0 for all attenuations
+
+    atts_zero = attenuations(LatLon(0, 0), 10, 10, 51; D = 1)
+    @test iszero(atts_zero.At)
+
+    atts_nonzero = attenuations(LatLon(0, 0), 10, 10, 51; D = 1, pabove_zero = false)
+    @test !iszero(atts_nonzero.At)
+
+
+    # We test that we still get meaningful intermediate values (e.g. hᵣ and Nwet which are only location dependent)
+    nt = attenuations(LatLon(0, 0), 10, 10, 51, Val(true); D = 1)
+
+    @test !iszero(nt.kwargs.Nwet)
+    @test !iszero(nt.kwargs.hᵣ)
+
+    # We test that no log is given either above 50 or below 0.001 by default
+    @test_logs attenuations(LatLon(0, 0), 10, 10, 51; D = 1)
+    @test_logs attenuations(LatLon(0, 0), 10, 10, 1e-4; D = 1)
+
+    # We test that we actually get a warning when p > 51 and p < 0.001
+    @test_logs (:warn,) match_mode=:any attenuations(LatLon(0, 0), 10, 10, 51; D = 1, pabove_zero = false)
+    @test_logs (:warn,) match_mode=:any attenuations(LatLon(0, 0), 10, 10, 1e-4; D = 1, pbelow_cap = false)
+
+    # We test that p is capped to 0.001 if p < 0.001
+    att1 = attenuations(LatLon(0, 0), 10, 10, 1e-4; D = 1, pbelow_cap = true)
+    att2 = attenuations(LatLon(0, 0), 10, 10, 1e-4; D = 1, pbelow_cap = false)
+
+    bench = attenuations(LatLon(0, 0), 10, 10, 1e-3; D = 1)
+    @test att1.At ≈ bench.At
+    @test att2.At ≉ bench.At
 end

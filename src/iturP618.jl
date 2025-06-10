@@ -266,10 +266,13 @@ Computes the various attenuations for earth/space links based on Section 2.4.1 o
 - `polarization_angle`: tilt angle [degrees] of the electric field polarization w.r.t. horizontal polarization. **Note: This field is computed from the `polarization` argument if not provided, but this function disregards the `polarization` argument if `polarization_angle` is explicitly provided.**
 - `warn`: Whether to warn if the inputs are outside the supported range. Defaults to `!SUPPRESS_WARNINGS[]`
 
+!!! note
+    This function returns 0.0 for all attenuations if `p > 50` and caps the outage to `p = 0.001` if `p < 0.001`. See the extended help for more details on how to override this behavior to keep _extrapolating_ the attenuations formulas outside these boundaries.
+
 See extended help for more details on extra keyword arguments and for maximizing the speed of the computation when some intermediate inputs are known.
 
 # Return
-- `(Ac=Ac, Ag=Ag, Ar=Ar, As=As, At=At)`: cloud, gas, rain, scintillation, total attenuations (dB)
+- `(;At, Ac, Ag, Ar, As)`: Named tuple with total, cloud, gas, rain, and scintillation attenuations (dB)
 
 # Extended help
 
@@ -280,6 +283,8 @@ This function accepts some additional keyword arguments that are intermediate in
 - `R001`: Annual rain rate [mm/h] exceeded 0.01% of the time.
 - `hᵣ`: Rain height [Km] to be used for the computation.
 - `gamma_oxygen` (also accepted as `γₒ`): Specific attenuation due to oxygen (dB/km) computed from the average surface conditions, at the desired location. **Note: This is used to speed up the computation of `Ag_zenith` but is ignored if the `Ag_zenith` argument is provided**
+- `pabove_zero::Bool`: Whether to set all attenuations to 0.0 if `p > 50`. Defaults to true
+- `pbelow_cap::Bool`: Whether to set `p` to 0.001 if `p < 0.001`. Defaults to true
 
 Additionally, the function can be called with `Val(true)` as last positional argument (after `p`) to also return the various intermediate inputs used in the computation for speeding up subsequent calls where only the elevation angle changes. Here is an example on how to use this when needing to compute attenuations for a given ground location towards multiple satellites at different elevation angles:
 
@@ -313,13 +318,17 @@ function attenuations(
     R001 = nothing,
     hᵣ = nothing,
     gamma_oxygen = nothing, γₒ = nothing,
+    pbelow_cap = true,
+    pabove_zero = true,
 ) where {full_output}
+    # Short circuit if p > 50 and we don't need full output
+    p > 50 && pabove_zero && !full_output && return (; Ac = 0.0, Ag = 0.0, Ar = 0.0, As = 0.0, At = 0.0)
     alt = @something(alt, altitude_from_location(latlon)) |> _tokm
     latlon = tolatlon(latlon)
     el = _todeg(el)
     f = _toghz(f)
     _validel(el) # Validate input elevation
-    full = _attenuations(latlon, f, el, p; D, η, polarization_angle, alt, warn, Ag_zenith, Ac_zenith, Nwet, R001, hᵣ, gamma_oxygen, γₒ)
+    full = _attenuations(latlon, f, el, p; D, η, polarization_angle, alt, warn, Ag_zenith, Ac_zenith, Nwet, R001, hᵣ, gamma_oxygen, γₒ, pbelow_cap, pabove_zero)
     if full_output
         return full
     else
@@ -338,22 +347,36 @@ function _attenuations(latlon, f, el, p;
     R001 = nothing,
     hᵣ = nothing,
     gamma_oxygen = nothing, γₒ = nothing,
+    pbelow_cap = true,
+    pabove_zero = true,
     warn=!SUPPRESS_WARNINGS[],
 )
     # Check the positional arguments ranges
     5 ≤ el ≤ 90 || !warn || @noinline(@warn("ItuR840.cloudattenuation only supports elevation angles between 5 and 90 degrees.\nThe given elevation angle $el degrees is outside this range so results may be inaccurate."))
+    if p < 0.001 && pbelow_cap
+        p = 0.001
+    end
+
+    # This is for type stability as we also send back inputs and we always force them to be Float64
+    f, el, p = map(Base.Fix1(convert, Float64), (f, el, p))
+
+    exit_early = p > 50 && pabove_zero
 
     # Extract altitude
     alt = @something(alt, altitude_from_location(latlon)) |> _tokm
     # Default polarization angle to 45 (circular)
     polarization_angle = @something(polarization_angle, 45) |> _todeg
     # Extract the zenith gaseous attenuation
-    Ag_zenith = @something(Ag_zenith, ItuRP676.gaseousattenuation(latlon, f, 90, max(5, p); alt, gamma_oxygen, γₒ))
+    Ag_zenith = exit_early ? 0.0 : @something(Ag_zenith, ItuRP676.gaseousattenuation(latlon, f, 90, max(5, p); alt, gamma_oxygen, γₒ))
     # Extract the zenith cloud attenuation
-    Ac_zenith = @something(Ac_zenith, ItuRP840.cloudattenuation(latlon, f, 90, max(5, p); warn))
+    Ac_zenith = exit_early ? 0.0 : @something(Ac_zenith, ItuRP840.cloudattenuation(latlon, f, 90, max(5, p); warn))
 
     # Get the scintillation attenuation
-    (; As, Nwet) = _scintillationattenuation(latlon, f, el, p; D, η, Nwet, warn, ignore_pwarn = p < 0.01) # We ignore pwarning because we might have values below 0.01%
+    (; As, Nwet) = if exit_early
+        (; As = 0.0, Nwet = @something(Nwet, ItuRP453.wettermsurfacerefractivityannual_50(latlon)))
+    else
+        _scintillationattenuation(latlon, f, el, p; D, η, Nwet, warn, ignore_pwarn = p < 0.01) # We ignore pwarning because we might have values below 0.01%
+    end
 
     (; Aₚ, hᵣ, R001) = if p ≤ 5 
         _rainattenuation(latlon, f, el, p; polarization_angle, alt, hᵣ, R001, warn)
@@ -370,7 +393,7 @@ function _attenuations(latlon, f, el, p;
     attenuations = combine_attenuations(; Ac, Ag, Ar = Aₚ, As)
     kwargs = (; Ac_zenith, Ag_zenith, polarization_angle, alt, D, η, Nwet, R001, hᵣ, warn)
 
-    return (; attenuations, kwargs, inps = (; latlon, f, el, p))
+    return (; attenuations, kwargs, inps = (; latlon,  el, p))
 end
 
 end # module ItuRP618

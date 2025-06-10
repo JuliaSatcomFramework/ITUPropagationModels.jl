@@ -2,7 +2,7 @@
 [![Docs Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliasatcomframework.github.io/ITUPropagationModels.jl/stable)
 [![Docs Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://juliasatcomframework.github.io/ITUPropagationModels.jl/dev)
 [![Build Status](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl)
+[![codecov](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl/graph/badge.svg?token=JN2HTUAMqd)](https://codecov.io/gh/JuliaSatcomFramework/ITUPropagationModels.jl)
 [![Aqua QA](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 A Julia implementation of some of the ITU-Recommendations for space links covering cloud, gaseous, rain, and scintillation attenuations.
