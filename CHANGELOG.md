@@ -4,6 +4,11 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+## 1.0.3 - 2025-10-03
+
+### Added
+- Added `attenuations_intermediate_terms` function to compute the intermediate terms for the `attenuations` function that only depend on the location and frequency.
+
 ## 1.0.2 - 2025-10-03
 
 ### Fixed
