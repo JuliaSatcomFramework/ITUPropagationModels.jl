@@ -3,7 +3,7 @@
 
 This function computes all the intermediate terms that can speed up the computation of the P618 attenuations and that only depend on the location (i.e. Latitude and Longitude) and the frequency.
 
-This function is mostly used to simplify speeding up computation by computing once and then storing the terms that do not change for a fixed location.
+This function is useful when the troposheri attenuations (from P618) need to be computed multiple times for the same location and frequency as saving this terms and using them by passing them to the `attenuations` function is more than twice as fast.
 
 ## Arguments
 - `latlon`: Object specifying the latitude and longitude of the location of interest, must be an object that can be converted to an instance of `ITUPropagationModels.LatLon`
