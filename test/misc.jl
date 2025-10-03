@@ -182,3 +182,14 @@ end
     @test atts_ll.At ≈ bench_1511alt.At
     @test atts_lla.At ≈ bench_customalt.At
 end
+
+@testitem "Attenuations Intermediate Terms" begin
+    # We try to verify that 
+    intermediate_terms = attenuations_intermediate_terms(10, 20, 30)
+
+    # We verify that the full kwargs terms are the same as the one forced by the intermediate terms
+    kwargs_forced = ItuRP618.attenuations(LatLon(10, 20), 30, 20, 1, Val(true); D = 1, intermediate_terms...).kwargs
+    kwargs_normal = ItuRP618.attenuations(10, 20, 30, 20, 1, Val(true); D = 1).kwargs
+
+    @test kwargs_forced == kwargs_normal
+end
