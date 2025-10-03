@@ -12,7 +12,7 @@ const version = ItuRVersion("ITU-R", "P.618", 14, "(08/2023)")
 
 # Exports and constructor with separate latitude and longitude arguments
 for name in (:scintillationattenuation, :rainattenuation, :attenuations)
-    @eval $name(lat::Number, lon::Number, args...; kwargs...) = $name(LatLon(lat, lon), args...; kwargs...)
+    @eval $name(lat::Number, lon::Number, args::Vararg{Any, N}; kwargs...) where {N} = $name(LatLon(lat, lon), args...; kwargs...)
     @eval export $name
 end
 # We add a method to avoid the ambiguities in Aqua
@@ -325,7 +325,7 @@ function attenuations(
     pabove_zero = true,
 ) where {full_output}
     # Short circuit if p > 50 and we don't need full output
-    p > 50 && pabove_zero && !full_output && return (; Ac = 0.0, Ag = 0.0, Ar = 0.0, As = 0.0, At = 0.0)
+    p > 50 && pabove_zero && !full_output && return (; At = 0.0, Ac = 0.0, Ag = 0.0, Ar = 0.0, As = 0.0)
     alt = @something(alt, altitude_from_location(latlon)) |> _tokm
     latlon = tolatlon(latlon)
     el = _todeg(el)

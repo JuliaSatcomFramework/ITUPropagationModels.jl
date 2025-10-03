@@ -4,6 +4,12 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+## 1.0.2 - 2025-10-03
+
+### Fixed
+- Fixed wrong order of NamedTuple returned by `attenuations` function and improve method inference (to remove allocations).
+- Fixed the docstring of `attenuations` function referring to `618-13` instead of `618-14`.
+
 ## 1.0.1 - 2025-06-10
 
 ### Added
