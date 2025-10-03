@@ -9,6 +9,7 @@ The primary interface for calculating atmospheric attenuations.
 
 ```@docs
 attenuations
+attenuations_intermediate_terms
 ```
 
 

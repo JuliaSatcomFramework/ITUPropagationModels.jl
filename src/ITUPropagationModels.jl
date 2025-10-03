@@ -41,6 +41,9 @@ include("iturP676.jl")
 
 include("iturP618.jl")
 
+include("helpers.jl")
+export attenuations_intermediate_terms
+
 using .ItuRP618: attenuations
 
 #endregion include

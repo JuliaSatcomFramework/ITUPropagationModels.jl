@@ -182,3 +182,30 @@ end
     @test atts_ll.At ≈ bench_1511alt.At
     @test atts_lla.At ≈ bench_customalt.At
 end
+
+@testitem "Attenuations Intermediate Terms" begin
+    # We try to verify that 
+    intermediate_terms = attenuations_intermediate_terms(10, 20, 30)
+
+    # We verify that the full kwargs terms are the same as the one forced by the intermediate terms
+    kwargs_forced = ItuRP618.attenuations(LatLon(10, 20), 30, 20, 1, Val(true); D = 1, intermediate_terms...).kwargs
+    kwargs_normal = ItuRP618.attenuations(10, 20, 30, 20, 1, Val(true); D = 1).kwargs
+
+    @test kwargs_forced == kwargs_normal
+end
+
+@testitem "iturcommon.jl coverage" begin
+    using ITUPropagationModels: EnumHorizontalPolarization, EnumVerticalPolarization, EnumCircularPolarization, tilt_from_polarization, EnumIce
+    # Test tilt_from_polarization
+    @test tilt_from_polarization(EnumHorizontalPolarization) == 0
+    @test tilt_from_polarization(EnumVerticalPolarization) == 90
+    @test tilt_from_polarization(EnumCircularPolarization) == 45
+    @test_throws "Invalid polarization" tilt_from_polarization(EnumIce)
+
+    @test repr(LatLon(10, 20)) == "(10.0, 20.0)"
+end
+
+@testitem "iturP453.jl coverage" begin
+    # Completely random test for coverage. To be improved later with sensible inputs and known outputs
+    @test ItuRP453.radiorefractiveindex(300, 1, 2) > 1
+end
