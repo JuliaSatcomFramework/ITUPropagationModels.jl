@@ -193,3 +193,19 @@ end
 
     @test kwargs_forced == kwargs_normal
 end
+
+@testitem "iturcommon.jl coverage" begin
+    using ITUPropagationModels: EnumHorizontalPolarization, EnumVerticalPolarization, EnumCircularPolarization, tilt_from_polarization, EnumIce
+    # Test tilt_from_polarization
+    @test tilt_from_polarization(EnumHorizontalPolarization) == 0
+    @test tilt_from_polarization(EnumVerticalPolarization) == 90
+    @test tilt_from_polarization(EnumCircularPolarization) == 45
+    @test_throws "Invalid polarization" tilt_from_polarization(EnumIce)
+
+    @test repr(LatLon(10, 20)) == "(10.0, 20.0)"
+end
+
+@testitem "iturP453.jl coverage" begin
+    # Completely random test for coverage. To be improved later with sensible inputs and known outputs
+    @test ItuRP453.radiorefractiveindex(300, 1, 2) > 1
+end
