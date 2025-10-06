@@ -5,6 +5,16 @@ export ItuRVersion
 
 const SUPPRESS_WARNINGS = Ref(false)
 
+"""
+    LatLon(lat, lon)
+Simple structure representing a location on Earth's surface. Used as basic input for most of the functions provided by this package.
+
+# Fields
+- `lat::Float64`: Latitude [degrees]
+- `lon::Float64`: Longitude [degrees]
+
+See also: [`attenuations`](@ref).
+"""
 struct LatLon
     lat::Float64
     lon::Float64
