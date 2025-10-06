@@ -17,6 +17,6 @@ UnitfulExt = "Unitful"
 
 [compat]
 Artifacts = "1"
-CoordRefSystems = "0.14 - 0.18"
+CoordRefSystems = "0.14 - 0.19"
 Unitful = "1.23.0"
 julia = "1.10"
