@@ -130,6 +130,10 @@ end
     bench_correctalt = ItuRP618.attenuations(lla, 30, 20, 1; D = 1, alt = 1.2)
     @test atts.At ≉ bench_wrongalt.At
     @test atts.At ≈ bench_correctalt.At
+
+    # We test that we get the intermediate terms coorectly even for custom types
+    intermediate_terms = attenuations_intermediate_terms(lla, 30, 1)
+    @test intermediate_terms == attenuations_intermediate_terms(rad2deg(lla.lat), rad2deg(lla.lon), 30, 1; alt = 1.2)
 end
 
 @testitem "Unitful Extension" begin

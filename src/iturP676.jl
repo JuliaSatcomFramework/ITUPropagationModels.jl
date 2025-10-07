@@ -20,7 +20,7 @@ d) a Weibull approximation to the slant path water vapour attenuation for use in
 The current implementation only covers points a) and c) in the above list
 =#
 
-using ..ITUPropagationModels: _todeg, ItuRP835, ItuRP453, ItuRVersion, ItuRP1511, LatLon, ItuRP2145, _toghz
+using ..ITUPropagationModels: _todeg, ItuRP835, ItuRP453, ItuRVersion, ItuRP1511, LatLon, ItuRP2145, _toghz, tolatlon
 using Artifacts
 const version = ItuRVersion("ITU-R", "P.676", 13, "(08/2022)")
 
@@ -646,6 +646,7 @@ function gaseousattenuation(latlon, f, el;
     gamma_oxygen = nothing, γₒ = nothing # Specific attenuation due to oxygen (dB/km) computed from the average surface conditions, at the desired location.
     )
     f = _toghz(f)
+    latlon = tolatlon(latlon)
     1 ≤ f ≤ 350 || throw(ArgumentError("Frequency must be between 1 and 350 GHz for the computation of gaseous attenuation"))
     P̄ = @something P̄ P_mean throw(ArgumentError("The average total surafce pressure has to be provided using either the `P_mean` or `P̄` keyword argument"))
     T̄ = @something T̄ T_mean throw(ArgumentError("The average surface temperature has to be provided using either the `T_mean` or `T̄` keyword argument"))

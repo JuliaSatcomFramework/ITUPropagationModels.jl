@@ -4,6 +4,10 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+## 1.1.1 - 2025-10-07
+### Fixed
+- Fixed the computation of the intermediate terms for the `gaseousattenuation` function when the location is provided as a custom type.
+
 ## 1.1.0 - 2025-10-07
 ### Added
 - Added a new `attenuations_intermediate_terms` function to compute the intermediate terms for the `attenuations` function that only depend on the location of the ground station and, optionally, on the frequency and/or outage probability of the link.
