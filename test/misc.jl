@@ -185,13 +185,42 @@ end
 
 @testitem "Attenuations Intermediate Terms" begin
     # We try to verify that 
-    intermediate_terms = attenuations_intermediate_terms(10, 20, 30)
+    intermediate_terms = attenuations_intermediate_terms(10, 20, 30, .5)
 
     # We verify that the full kwargs terms are the same as the one forced by the intermediate terms
-    kwargs_forced = ItuRP618.attenuations(LatLon(10, 20), 30, 20, 1, Val(true); D = 1, intermediate_terms...).kwargs
-    kwargs_normal = ItuRP618.attenuations(10, 20, 30, 20, 1, Val(true); D = 1).kwargs
+    kwargs_forced = ItuRP618.attenuations(LatLon(10, 20), 30, 20, .5, Val(true); D = 1, intermediate_terms...).kwargs
+    kwargs_normal = ItuRP618.attenuations(10, 20, 30, 20, .5, Val(true); D = 1).kwargs
 
     @test kwargs_forced == kwargs_normal
+
+    # Here we test the functionality in the example of the docstring for `attenuations_intermediate_terms`
+    gateway = LatLon(52.37, 4.89) # Amsterdam, The Netherlands
+    f = 30 # 30 GHz frequency
+
+    constant_terms = attenuations_intermediate_terms(gateway, f)
+
+    p = 1 # 1% outage
+
+    current_timestep_terms = attenuations_intermediate_terms(gateway, f, p; constant_terms...)
+
+    satellites = [
+        (; elevation = 10),
+        (; elevation = 20),
+        (; elevation = 30),
+        (; elevation = 40),
+        (; elevation = 50),
+        (; elevation = 60),
+        (; elevation = 70),
+        (; elevation = 80),
+        (; elevation = 90),
+    ]
+
+    for sat in satellites
+        this_sat_attenuations = attenuations(gateway, f, sat.elevation, p; D = 1, current_timestep_terms...)
+
+        full_computations = attenuations(gateway, f, sat.elevation, p; D = 1)
+        @test this_sat_attenuations == full_computations
+    end
 end
 
 @testitem "iturcommon.jl coverage" begin
