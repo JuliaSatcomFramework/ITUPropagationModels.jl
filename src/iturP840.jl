@@ -140,7 +140,7 @@ function _K_L(f)
     return (; K_L, nt...)
 end
 
-# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points, in which case the attenuation is zero (Section 3.3, note). The maps hold NaN for mL and sL where the probability of cloud is below 0.02 %, so a NaN value never reaches equation 15
+# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points, in which case the attenuation is zero (Section 3.3, note). The maps hold NaN for mL and sL where the probability of cloud is below 0.02 %, so a NaN value never reaches equation 15. The guard uses `<=` rather than the maps' `<` because the Recommendation defines no approximation at the threshold either (Section 3.3, note: "PL ≤ 0.02"), making it the wider, conservative check
 function _lognormalparameters(latlon::LatLon)
     mL_itp, sL_itp, PL_itp = @something(ANNUAL_DATA.lognormal, let
         initialize_lognormal!()
