@@ -25,6 +25,7 @@ export ItuRP618
 #region include
 
 include("iturcommon.jl")
+include("numerics.jl")
 
 include("iturP1144.jl") # Interpolations
 
