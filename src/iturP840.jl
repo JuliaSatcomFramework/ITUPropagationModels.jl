@@ -140,7 +140,7 @@ function _K_L(f)
     return (; K_L, nt...)
 end
 
-# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points, in which case the attenuation is zero (Section 3.3, note). The maps hold NaN for mL and sL where the probability of cloud is below 0.02 %, so a NaN value never reaches equation 15. The guard uses `<=` rather than the maps' `<` because the Recommendation defines no approximation at the threshold either (Section 3.3, note: "PL ≤ 0.02"), making it the wider, conservative check
+# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points, in which case the attenuation is zero (Section 3.3, note). The maps hold NaN for mL and sL only where the probability of cloud is at most 0.02 % (the test suite checks this against the artifact), so the guard keeps every NaN out of equation 15
 function _lognormalparameters(latlon::LatLon)
     mL_itp, sL_itp, PL_itp = @something(ANNUAL_DATA.lognormal, let
         initialize_lognormal!()
@@ -243,7 +243,7 @@ A `NamedTuple` with fields
 - `sL`: log-normal standard deviation parameter
 - `PL`: probability of cloud (%)
 
-`mL` and `sL` are `NaN` where the maps define no approximation (probability of cloud below 0.02 % at a surrounding grid point, mostly near the poles).
+`mL` and `sL` are `NaN` where the maps define no approximation (probability of cloud at most 0.02 % at a surrounding grid point, mostly near the poles).
 """
 function lognormalparameters(latlon)
     (; mL, sL, PL) = _lognormalparameters(tolatlon(latlon))
