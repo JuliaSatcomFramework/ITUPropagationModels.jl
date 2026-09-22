@@ -4,6 +4,8 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+## 1.2.0 - 2026-09-23
+
 ### Added
 - `ItuRP837.rainprobability` (annual probability of rain) and `ItuRP837.rainfallrate` (rainfall rate at any exceedance probability) implementing Annex 1 of ITU-R P.837-7 in full.
 - New `ItuRP1510` module with `surfacemeantemperature` (annual and monthly) from ITU-R P.1510-1.
