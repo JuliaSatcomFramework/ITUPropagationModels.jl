@@ -11,8 +11,10 @@ on:
           - p453_nwet_annual.jl
           - p676.jl
           - p837_R001.jl
+          - p837_monthly.jl
           - p839.jl
           - p840.jl
+          - p1510.jl
           - p1511.jl
           - p2145.jl
       # Add more scripts here as you create them

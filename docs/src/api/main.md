@@ -45,6 +45,8 @@ ITUPropagationModels.ItuRP835.standardwatervapourdensity
 
 ```@docs
 ITUPropagationModels.ItuRP837.rainfallrate001
+ITUPropagationModels.ItuRP837.rainprobability
+ITUPropagationModels.ItuRP837.rainfallrate
 ```
 
 # ITU-R P.838 - Rain Specific Attenuation
@@ -65,6 +67,12 @@ ITUPropagationModels.ItuRP839.isothermheight
 ```@docs
 ITUPropagationModels.ItuRP840.cloudattenuation
 ITUPropagationModels.ItuRP840.liquidwatercontent
+```
+
+# ITU-R P.1510 - Mean Surface Temperature
+
+```@docs
+ITUPropagationModels.ItuRP1510.surfacemeantemperature
 ```
 
 # ITU-R P.1511 - Topographic Data

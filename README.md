@@ -27,11 +27,12 @@ The following ITU-R Recommendations are implemented at least in part:
 *   **ITU-R P.618-14:** Propagation data and prediction methods required for the design of Earth-space telecommunication systems
 *   **ITU-R P.676-13:** Attenuation by atmospheric gases
 *   **ITU-R P.835-7:** Reference Standard Atmospheres
-*   **ITU-R P.837-7:** Characteristics of precipitation for propagation modelling
+*   **ITU-R P.837-7:** Characteristics of precipitation for propagation modelling (rainfall rate at any exceedance probability and probability of rain)
 *   **ITU-R P.838-8:** Specific attenuation model for rain for use in prediction methods
 *   **ITU-R P.839-4:** Rain height model for prediction methods.
 *   **ITU-R P.840-9:** Attenuation due to clouds and fog 
 *   **ITU-R P.1144-12** Interpolations methods for other ITU-R Recommendations
+*   **ITU-R P.1510-1:** Mean surface temperature
 *   **ITU-R P.1511-3:** Topography for Earth-to-space propagation modelling
 *   **ITU-R P.2145-0:** Digital maps related to the calculation of gaseous attenuation and related effects
 

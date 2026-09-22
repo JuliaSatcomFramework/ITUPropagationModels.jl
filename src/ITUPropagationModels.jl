@@ -10,6 +10,7 @@ export ItuRP840
 
 export ItuRP453
 export ItuRP1144
+export ItuRP1510
 export ItuRP1511
 export ItuRP2145
 export ItuRP835
@@ -25,12 +26,14 @@ export ItuRP618
 #region include
 
 include("iturcommon.jl")
+include("numerics.jl")
 
 include("iturP1144.jl") # Interpolations
 
 include("iturP840.jl")
 
 include("iturP453.jl")
+include("iturP1510.jl")
 include("iturP1511.jl")
 include("iturP2145.jl")
 include("iturP835.jl")
