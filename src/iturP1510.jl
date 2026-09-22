@@ -16,6 +16,8 @@ for name in (:surfacemeantemperature,)
     @eval $name(lat::Number, lon::Number, args...; kwargs...) = $name(LatLon(lat, lon), args...; kwargs...)
     @eval export $name
 end
+# We add a method to avoid the ambiguity in Aqua between the separate lat/lon wrapper above and `surfacemeantemperature(latlon, month::Integer)`
+surfacemeantemperature(::Number, ::Integer) = throw(ArgumentError("This method signature is not supported by ItuRP1510.surfacemeantemperature, you probably forgot to provide one argument.\nRemember that the first input to this function is either a single object representing the Lat/Lon location of interest or two separate numbers representing the latitude and longitude."))
 
 #region initialization
 
