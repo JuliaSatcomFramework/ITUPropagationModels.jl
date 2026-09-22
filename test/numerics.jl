@@ -17,6 +17,7 @@ end
     @test bisect(x -> x - 1, 1, 3) == 1.0
     @test bisect(x -> exp(x) - 5, -10, 10; xtol = 1e-9) ≈ log(5) atol = 1e-8
     @test_throws "sign change" bisect(x -> x^2 + 1, -1, 1)
+    @test_throws "sign change" bisect(x -> NaN, 0, 1)
 end
 
 @testitem "Numerics - bivariate normal ccdf" begin

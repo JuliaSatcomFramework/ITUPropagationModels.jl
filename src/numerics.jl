@@ -30,7 +30,7 @@ function bisect(f, lo::Real, hi::Real; xtol::Real = 1e-12, maxiter::Integer = 20
     fhi = f(hi)
     iszero(flo) && return lo
     iszero(fhi) && return hi
-    sign(flo) == sign(fhi) && throw(ArgumentError("bisect requires a sign change on [lo, hi]: f($lo) = $flo, f($hi) = $fhi"))
+    (isnan(flo) || isnan(fhi) || sign(flo) == sign(fhi)) && throw(ArgumentError("bisect requires a sign change on [lo, hi]: f($lo) = $flo, f($hi) = $fhi"))
     for _ in 1:maxiter
         mid = (lo + hi) / 2
         fmid = f(mid)

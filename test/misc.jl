@@ -4,7 +4,9 @@
     @test_throws ArgumentError ItuRP618.scintillationattenuation(LatLon(0, 0), 30, 1, 1; efficiency = 101)
     @test_throws "forgot to provide one argument" ItuRP618.attenuations(0, 0, 30, 10; D = 1)
     @test_throws "forgot to provide one argument" ItuRP837.rainfallrate(30, 0.5)
-    @test_throws "forgot to provide one argument" ItuRP1510.surfacemeantemperature(30, 7)
+    @test_throws "within (0, 100]" ItuRP837.rainfallrate(LatLon(41.9, 12.49), 0)
+    @test_throws "within (0, 100]" ItuRP837.rainfallrate(LatLon(41.9, 12.49), -1)
+    @test ItuRP1510.surfacemeantemperature(30, 7) == ItuRP1510.surfacemeantemperature(LatLon(30, 7))
 
     # LatLon with wrong lat
     @test_throws ArgumentError LatLon(100, 0)
@@ -251,7 +253,9 @@ end
     ll = LatLon(41.9, 12.49)
     lla = LatLonAlt(ll.lat, ll.lon, 100)
     @test ItuRP1510.surfacemeantemperature(41.9u"°", 12.49u"°", 4) == ItuRP1510.surfacemeantemperature(ll, 4)
+    @test ItuRP1510.surfacemeantemperature(41.9u"°", 12.49u"°") == ItuRP1510.surfacemeantemperature(ll)
     @test ItuRP1510.surfacemeantemperature(lla) == ItuRP1510.surfacemeantemperature(ll)
     @test ItuRP837.rainprobability(lla) == ItuRP837.rainprobability(ll)
     @test ItuRP837.rainfallrate(deg2rad(41.9)u"rad", 12.49u"°", 0.1) == ItuRP837.rainfallrate(ll, 0.1)
+    @test ItuRP837.rainfallrate(lla, 0.1) == ItuRP837.rainfallrate(ll, 0.1)
 end

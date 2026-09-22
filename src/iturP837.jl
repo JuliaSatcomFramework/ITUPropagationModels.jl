@@ -141,7 +141,7 @@ rainprobability(latlon) = _rainprobability(tolatlon(latlon)).P0
 # Percentage of an average year during which the 1-min rain rate exceeds R (Annex 1, step 4)
 function _exceedanceprobability(R::Real, r::NTuple{12, <:Real}, P0m::NTuple{12, <:Real})
     acc = 0.0
-    for m in 1:12
+    for m in eachindex(r, P0m)
         acc += DAYS_IN_MONTH[m] * P0m[m] * Q((log(R) + 0.7938 - log(r[m])) / 1.26)
     end
     return acc / 365.25
@@ -163,6 +163,7 @@ Rainfall rate ``R_p`` (mm/h) with 1-min integration time exceeded for `p` % of a
 """
 function rainfallrate(latlon, p::Real)
     latlon = tolatlon(latlon)
+    0 < p <= 100 || throw(ArgumentError("p must be an exceedance probability in percent within (0, 100], got $p"))
     p == 0.01 && return rainfallrate001(latlon)
     (; r, P0m, P0) = _rainprobability(latlon)
     p > P0 && return 0.0
