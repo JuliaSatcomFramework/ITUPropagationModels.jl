@@ -63,23 +63,21 @@ Annual (first form) or monthly (second form, `month` in `1:12`) mean surface tem
 """
 function surfacemeantemperature(latlon)
     latlon = tolatlon(latlon)
-    if DATA.annual === nothing
+    itp = @something(DATA.annual, let
         initialize!()
-    end
-    return DATA.annual(latlon)::Float64
-end
-
-function surfacemeantemperature(latlon, month::Int)
-    1 <= month <= 12 || throw(ArgumentError("month must be between 1 and 12, got $month"))
-    latlon = tolatlon(latlon)
-    if DATA.monthly === nothing
-        initialize!()
-    end
-    return DATA.monthly[month](latlon)::Float64
+        DATA.annual
+    end)::SGD_TYPE
+    return itp(latlon)
 end
 
 function surfacemeantemperature(latlon, month::Integer)
-    return surfacemeantemperature(latlon, Int(month))
+    1 <= month <= 12 || throw(ArgumentError("month must be between 1 and 12, got $month"))
+    latlon = tolatlon(latlon)
+    monthly = @something(DATA.monthly, let
+        initialize!()
+        DATA.monthly
+    end)::NTuple{12, SGD_TYPE}
+    return monthly[month](latlon)
 end
 
 end # module ItuRP1510
