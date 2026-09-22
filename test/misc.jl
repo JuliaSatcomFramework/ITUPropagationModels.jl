@@ -3,6 +3,8 @@
     @test_throws ArgumentError ItuRP618.scintillationattenuation(LatLon(0, 0), 30, 100, 1)
     @test_throws ArgumentError ItuRP618.scintillationattenuation(LatLon(0, 0), 30, 1, 1; efficiency = 101)
     @test_throws "forgot to provide one argument" ItuRP618.attenuations(0, 0, 30, 10; D = 1)
+    @test_throws "forgot to provide one argument" ItuRP837.rainfallrate(30, 0.5)
+    @test_throws "forgot to provide one argument" ItuRP1510.surfacemeantemperature(30, 7)
 
     # LatLon with wrong lat
     @test_throws ArgumentError LatLon(100, 0)
