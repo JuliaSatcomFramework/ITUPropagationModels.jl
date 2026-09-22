@@ -256,6 +256,7 @@ end
     @test ItuRP1510.surfacemeantemperature(41.9u"°", 12.49u"°") == ItuRP1510.surfacemeantemperature(ll)
     @test ItuRP1510.surfacemeantemperature(lla) == ItuRP1510.surfacemeantemperature(ll)
     @test ItuRP837.rainprobability(lla) == ItuRP837.rainprobability(ll)
+    @test ItuRP837.rainprobability(41.9u"°", 12.49u"°") == ItuRP837.rainprobability(ll)
     @test ItuRP837.rainfallrate(deg2rad(41.9)u"rad", 12.49u"°", 0.1) == ItuRP837.rainfallrate(ll, 0.1)
     @test ItuRP837.rainfallrate(lla, 0.1) == ItuRP837.rainfallrate(ll, 0.1)
 end
