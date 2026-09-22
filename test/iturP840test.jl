@@ -114,4 +114,5 @@ end
     @test_logs ItuRP840.cloudattenuation_lognormal(ll, 1000, 1, 1; warn = false)
     @test_throws "within (0, 100]" ItuRP840.cloudattenuation_lognormal(ll, 30, 45, 0)
     @test_throws "within (0, 100]" ItuRP840.cloudattenuation_lognormal(ll, 30, 45, -1)
+    @test_throws "within (0, 100]" ItuRP840.cloudattenuation_lognormal(ll, 30, 45, 101)
 end
