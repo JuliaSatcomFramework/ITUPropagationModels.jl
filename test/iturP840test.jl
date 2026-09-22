@@ -25,14 +25,12 @@
             computed = getproperty(out, fld)
             valid = isapprox(computed, validation; rtol=error_tolerance)
             if !valid
-                @warn "Kₗ entry $n, $fld: $computed != $validation"
+                @warn "Kₗ entry $ll, $fld: $computed != $validation"
             end
             valid
         end
-        L = ItuRP840.liquidwatercontent(ll, p)
-        Ac = ItuRP840.cloudattenuation(ll, f, el, p)
-        @test L ≈ L rtol = error_tolerance
-        @test Ac ≈ Ac rtol = error_tolerance
+        @test ItuRP840.liquidwatercontent(ll, p) ≈ L rtol = error_tolerance
+        @test ItuRP840.cloudattenuation(ll, f, el, p) ≈ Ac rtol = error_tolerance
     end
 end
 
