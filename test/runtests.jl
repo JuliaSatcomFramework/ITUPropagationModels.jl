@@ -7,6 +7,8 @@ using TestItemRunner
     validation_file = joinpath(@__DIR__, "CG-3M3J-13-ValEx-Rev8.3.0.xlsx")
 
     error_tolerance = 1e-7
+    # Measures allocations of `f(args...)` from inside a function, so that non-const test globals are not boxed into the count
+    allocations(f, args...) = (f(args...); @allocated f(args...))
 end
 @testitem "Aqua" begin
     using Aqua

@@ -22,6 +22,6 @@
     @test annual ≈ monthly_mean rtol = 1e-3
     @test ItuRP1510.surfacemeantemperature(45, 10, 3) == ItuRP1510.surfacemeantemperature(ll, 3)
     @test_throws "between 1 and 12" ItuRP1510.surfacemeantemperature(ll, 13)
-    @test @allocated(ItuRP1510.surfacemeantemperature(ll)) == 0
-    @test @allocated(ItuRP1510.surfacemeantemperature(ll, 7)) == 0
+    @test allocations(ItuRP1510.surfacemeantemperature, ll) == 0
+    @test allocations(ItuRP1510.surfacemeantemperature, ll, 7) == 0
 end
