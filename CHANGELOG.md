@@ -6,7 +6,7 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ### Added
 - `ItuRP840.lognormalparameters` and `ItuRP840.cloudattenuation_lognormal` implementing the log-normal approximation to the slant path cloud attenuation of Section 3.3 of ITU-R P.840-9.
-- The `p840_annual` artifact now also contains the `mL`, `sL` and `PL` maps of Part 14 of ITU-R P.840-9.
+- The `p840_annual` artifact now also contains the `mL`, `sL` and `PL` maps of Part 14 of ITU-R P.840-9; its release asset is now `p840_annual.tar.gz` (the previous asset stays available for older package versions).
 
 ## 1.2.0 - 2026-09-23
 
