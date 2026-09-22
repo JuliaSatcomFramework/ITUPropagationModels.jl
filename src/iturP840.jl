@@ -243,7 +243,7 @@ A `NamedTuple` with fields
 - `sL`: log-normal standard deviation parameter
 - `PL`: probability of cloud (%)
 
-`mL` and `sL` are `NaN` where the maps define no approximation (probability of cloud at most 0.02 % at a surrounding grid point, mostly near the poles).
+`mL` and `sL` are `NaN` only where the maps define no approximation (probability of cloud at most 0.02 % at a surrounding grid point, mostly near the poles).
 """
 function lognormalparameters(latlon)
     (; mL, sL, PL) = _lognormalparameters(tolatlon(latlon))

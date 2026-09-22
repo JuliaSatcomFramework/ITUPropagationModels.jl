@@ -104,10 +104,11 @@ end
     mL_itp, sL_itp, PL_itp = ItuRP840.ANNUAL_DATA.lognormal
     @test isnan.(mL_itp.data) == isnan.(sL_itp.data)
     @test all(isnan.(mL_itp.data) .<= (PL_itp.data .<= 0.02))
+    @test !any(isnan, PL_itp.data)
     # Grid edges: the poles and the antimeridian resolve to a degenerate stencil rather than an out-of-range index
     @test isnan(ItuRP840.lognormalparameters(LatLon(-90, 180)).mL)
     @test ItuRP840.cloudattenuation_lognormal(LatLon(-90, 180), 30, 45, 1) == 0
-    @test ItuRP840.lognormalparameters(LatLon(90, -180)).PL == ItuRP840.lognormalparameters(LatLon(90, 180)).PL
+    @test ItuRP840.lognormalparameters(LatLon(45, -180)).PL == ItuRP840.lognormalparameters(LatLon(45, 180)).PL
     # p at or above the probability of cloud
     @test ItuRP840.cloudattenuation_lognormal(0, 0, 30, 45, 99) == 0
 
