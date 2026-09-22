@@ -242,3 +242,14 @@ end
     # Completely random test for coverage. To be improved later with sensible inputs and known outputs
     @test ItuRP453.radiorefractiveindex(300, 1, 2) > 1
 end
+
+@testitem "Generic inputs - P.1510 and P.837 additions" begin
+    using Unitful
+    using CoordRefSystems: LatLonAlt
+    ll = LatLon(41.9, 12.49)
+    lla = LatLonAlt(ll.lat, ll.lon, 100)
+    @test ItuRP1510.surfacemeantemperature(41.9u"°", 12.49u"°", 4) == ItuRP1510.surfacemeantemperature(ll, 4)
+    @test ItuRP1510.surfacemeantemperature(lla) == ItuRP1510.surfacemeantemperature(ll)
+    @test ItuRP837.rainprobability(lla) == ItuRP837.rainprobability(ll)
+    @test ItuRP837.rainfallrate(deg2rad(41.9)u"rad", 12.49u"°", 0.1) == ItuRP837.rainfallrate(ll, 0.1)
+end

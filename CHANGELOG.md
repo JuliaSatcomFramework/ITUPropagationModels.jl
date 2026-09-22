@@ -4,6 +4,13 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+### Added
+- `ItuRP837.rainprobability` (annual probability of rain) and `ItuRP837.rainfallrate` (rainfall rate at any exceedance probability) implementing Annex 1 of ITU-R P.837-7 in full.
+- New `ItuRP1510` module with `surfacemeantemperature` (annual and monthly) from ITU-R P.1510-1.
+- New artifacts `p1510` and `p837_monthly`.
+- `SpecialFunctions` is now a dependency.
+- The artifact scripts download from the ITU with browser headers (`download_itu`); the P.837-7 archive is now fetched from its superseded-edition URL since P.837-8 was published.
+
 ## 1.1.1 - 2025-10-07
 ### Fixed
 - Fixed the computation of the intermediate terms for the `gaseousattenuation` function when the location is provided as a custom type.
