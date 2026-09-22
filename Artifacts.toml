@@ -40,6 +40,13 @@ git-tree-sha1 = "a3f7ed63f6b1bf6da6763648d96118b16f8ccfd5"
     sha256 = "1a8f66c64cdbca8357806e5735c7b375226f7ab0f8001695c31b4dbb2442f444"
     url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p837_R001.tar.gz"
 
+[p837_monthly]
+git-tree-sha1 = "90ff8361897a191759c51fb8125f4f83fc74e1a3"
+
+    [[p837_monthly.download]]
+    sha256 = "41fd65274bff3e86b8d58d82c4682ff7903013bcb28d400042d68d26c073160e"
+    url = "https://github.com/JuliaSatcomFramework/ITUPropagationModels.jl/releases/download/artifacts_releases/p837_monthly.tar.gz"
+
 [p839]
 git-tree-sha1 = "d412199ad2e1d04d87e38feaa9db6791701d815d"
 

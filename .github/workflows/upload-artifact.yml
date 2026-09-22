@@ -16,6 +16,7 @@ on:
           - p1511.jl
           - p2145.jl
           - p1510.jl
+          - p837_monthly.jl
       # Add more scripts here as you create them
 
 permissions:
