@@ -10,12 +10,7 @@ function create_p837_R001_artifact()
             # ITU serves it under the superseded ("S") suffix since P.837-7 was superseded by P.837-8.
             url = "https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.837-7-201706-S!!ZIP-E.zip"
 
-            zip_path = joinpath(downloads_dir, "p837_R001.zip")
-            if !isfile(zip_path)
-                @info "Downloading raw zip file for ITU-R P.837-7 from ITU Database"
-                Downloads.download(url, zip_path)
-                @info "Download completed"
-            end
+            zip_path = download_itu(url, joinpath(downloads_dir, "p837_R001.zip"))
 
             latres = 0.125
             lonres = 0.125
