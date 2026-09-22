@@ -140,7 +140,7 @@ function _K_L(f)
     return (; K_L, nt...)
 end
 
-# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points: the recommendation defines no approximation there (the maps hold NaN for mL and sL) and the attenuation is zero (Section 3.3, note)
+# Log-normal parameters bi-linearly interpolated from the four grid points around `latlon`. `cloudfree` is true when the probability of cloud is at most 0.02 % at any of the four points, in which case the attenuation is zero (Section 3.3, note). The maps hold NaN for mL and sL where the probability of cloud is below 0.02 %, so a NaN value never reaches equation 15
 function _lognormalparameters(latlon::LatLon)
     mL_itp, sL_itp, PL_itp = @something(ANNUAL_DATA.lognormal, let
         initialize_lognormal!()
@@ -261,7 +261,7 @@ Log-normal approximation to the annual slant path cloud attenuation of Section 3
   - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
 - `f`: frequency (GHz)
 - `el`: elevation angle (degrees)
-- `p`: exceedance probability (%)
+- `p`: exceedance probability (%), within `(0, 100]`
 
 # Return
 - `Ac::Float64`: slant path cloud attenuation (dB). Zero when `p` is at or above the probability of cloud, and wherever the maps define no approximation (probability of cloud at most 0.02 % at any of the four surrounding grid points).
@@ -270,6 +270,7 @@ function cloudattenuation_lognormal(latlon, f, el, p; warn=!SUPPRESS_WARNINGS[])
     latlon = tolatlon(latlon)
     el = _todeg(el)
     f = _toghz(f)
+    0 < p <= 100 || throw(ArgumentError("p must be an exceedance probability in percent within (0, 100], got $p"))
     5 ≤ el ≤ 90 || !warn || @noinline(@warn("ItuR840.cloudattenuation_lognormal only supports elevation angles between 5 and 90 degrees.\nThe given elevation angle $el degrees is outside this range so results may be inaccurate."))
     1 ≤ f ≤ 200 || !warn || @noinline(@warn("ItuR840.cloudattenuation_lognormal only supports frequencies between 1 and 200 GHz.\nThe given frequency $f GHz is outside this range so results may be inaccurate."))
     return _cloudattenuation_lognormal(latlon, f, el, p).Ac
