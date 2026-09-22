@@ -35,3 +35,22 @@ function parsematrix(file::AbstractString, ::Type{T} = Float64) where T
     return stack(s -> parseline(s, T), eachline(file)) |> permutedims
 end
 
+# The ITU download server rejects requests without browser-like headers and then answers with an HTML page instead of the archive.
+function download_itu(url::AbstractString, path::AbstractString)
+    if !isfile(path)
+        @info "Downloading $url"
+        headers = [
+            "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+            "Referer" => "https://www.itu.int/rec/R-REC-P/en",
+            "Accept" => "*/*",
+        ]
+        Downloads.download(url, path; headers)
+    end
+    magic = open(io -> read(io, 2), path)
+    if magic != UInt8['P', 'K']
+        rm(path)
+        error("ITU returned a non-zip response for $url. Download it in a browser and save it as $path, then rerun.")
+    end
+    return path
+end
+
