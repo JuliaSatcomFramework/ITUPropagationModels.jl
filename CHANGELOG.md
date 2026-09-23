@@ -4,6 +4,10 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+### Added
+- New `ItuRP678` module with `climaticratio`, `interannualvariance` and `riskofexceedance` implementing Annexes 2 and 3 of ITU-R P.678-3.
+- New artifact `p678`.
+
 ## 1.2.0 - 2026-09-23
 
 ### Added
