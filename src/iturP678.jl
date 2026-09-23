@@ -54,6 +54,7 @@ const Δt = 60 # s, equation 3
 
 # Variance of estimation, Annex 2 equations 2 to 5. The autocorrelation terms decrease monotonically with i, so the sum stops once they fall below machine precision
 function _varianceofestimation(p::Real)
+    _checkprobability(p, "p")
     p * (1 - p) == 0 && return 0.0
     a = 0.0265
     b = -0.0396 * log(p) + 0.286
@@ -111,10 +112,11 @@ A `NamedTuple` with fields
 - `sigma2C`: inter-annual climatic variance (equation 6)
 - `sigma2E`: variance of estimation (equation 5)
 
-When the long-term statistic is a predicted CCDF (for example the rain attenuation of `ItuRP618.rainattenuation`) rather than a measured one, Annex 2 (equation 7) adds the error of the prediction, ``σ²_M``, to the returned `sigma2`; that term depends on the prediction method and is not computed here.
+When the long-term statistic is a predicted CCDF (for example the rain attenuation of `ItuRP618.rainattenuation`) rather than a measured one, Annex 2 (equation 7) adds the error of the prediction, `σ²_M`, to the returned `sigma2`; that term depends on the prediction method and is not computed here.
 """
 function interannualvariance(latlon, p; warn=!SUPPRESS_WARNINGS[], sigma2E=_varianceofestimation(p))
     _checkprobability(p, "p")
+    sigma2E = float(sigma2E)
     1e-4 <= p <= 2e-2 || !warn || @noinline(@warn("ItuRP678.interannualvariance is only applicable for exceedance probabilities between 0.01% and 2% (0.0001 ≤ p ≤ 0.02).\nThe given p = $p is outside this range so results may be inaccurate."))
     rc = climaticratio(latlon)
     sigma2C = (rc * p)^2
@@ -138,10 +140,11 @@ Risk, as a probability, that the yearly exceedance probability of a fixed rain a
 # Return
 - `risk::Float64`: probability that the yearly exceedance probability is above `pr`
 """
-function riskofexceedance(latlon, p, pr; kwargs...)
+function riskofexceedance(latlon, p, pr; warn=!SUPPRESS_WARNINGS[], kwargs...)
     _checkprobability(pr, "pr")
-    pr == p && return 0.5
-    (; sigma2) = interannualvariance(latlon, p; kwargs...)
+    (; sigma2) = interannualvariance(latlon, p; warn, kwargs...)
+    # A zero variance only occurs at p = 0 or p = 1; equation 8 then degenerates to the step function around p, with 0.5 at pr == p by definition
+    iszero(sigma2) && return pr == p ? 0.5 : (pr > p ? 0.0 : 1.0)
     return Q((pr - p) / sqrt(sigma2))
 end
 

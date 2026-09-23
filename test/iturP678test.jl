@@ -48,6 +48,9 @@ end
     @test ItuRP678.interannualvariance(ll, 0; warn = false) == (; sigma2 = 0.0, sigma2C = 0.0, sigma2E = 0.0)
     @test ItuRP678.interannualvariance(ll, 1; warn = false).sigma2E == 0
     @test ItuRP678.riskofexceedance(ll, 0, 0; warn = false) == 0.5
+    @test ItuRP678.riskofexceedance(ll, 0, 0.5; warn = false) == 0
+    @test_throws "within [0, 1]" ItuRP678.interannualvariance(ll, -0.5)
+    @test_throws "within [0, 1]" ItuRP678.riskofexceedance(ll, -0.5, 0.01)
     # A precomputed variance of estimation is used as given
     sigma2E = ItuRP678._varianceofestimation(0.01)
     @test ItuRP678.interannualvariance(ll, 0.01; sigma2E) == ItuRP678.interannualvariance(ll, 0.01)
