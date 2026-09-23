@@ -20,6 +20,7 @@ export ItuRP837
 export ItuRP676
 
 export ItuRP618
+export ItuRP678
 
 #endregion package export
 
@@ -43,6 +44,7 @@ include("iturP837.jl")
 include("iturP676.jl")
 
 include("iturP618.jl")
+include("iturP678.jl")
 
 include("helpers.jl")
 export attenuations_intermediate_terms
