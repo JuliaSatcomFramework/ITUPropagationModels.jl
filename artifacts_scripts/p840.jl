@@ -6,63 +6,57 @@ function create_p840_annual_artifact()
 
     if isnothing(_artifact_hash) || !Artifacts.artifact_exists(_artifact_hash)
         _artifact_hash = Artifacts.create_artifact() do artifact_folder
-            # This is the URL for direct download of the zip file containing the Part 1 of the ITU-R P.840-9 recommendation (Annual Data)
-            url = "https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.840Part01-0-202308-I!!ZIP-E.zip"
-
-            zip_path = joinpath(downloads_dir, "p840_2023_Part1_annual.zip")
-            if !isfile(zip_path)
-                @info "Downloading raw zip file for ITU-R P.840-9 Part 1 (Annual Data) from ITU Database"
-                Downloads.download(url, zip_path)
-                @info "Download completed"
-            end
-
+            # Part 1 holds the annual statistics of integrated cloud liquid water content, Part 14 the parameters of their log-normal approximation
+            annual_url = "https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.840Part01-0-202308-I!!ZIP-E.zip"
+            lognormal_url = "https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.840Part14-0-202308-I!!ZIP-E.zip"
+            annual_zip = download_itu(annual_url, joinpath(downloads_dir, "p840_2023_Part1_annual.zip"))
+            lognormal_zip = download_itu(lognormal_url, joinpath(downloads_dir, "p840_2023_Part14_lognormal.zip"))
 
             latres = 0.25
             lonres = 0.25
-
             latrange = range(-90, 90, step=latres)
-            lonrange = range(0, 360, step=lonres)
-
+            lonrange = range(-180, 180, step=lonres)
             matsize = (length(latrange), length(lonrange))
 
-            # Add a README
             open(joinpath(artifact_folder, "README"), "w") do io
-                println(io, "This folder contains data for the ITU-R P.840-9 recommendation (Annual Data of Integrated Liquid Water Content) directly in binary format.")
+                println(io, "This folder contains data for the ITU-R P.840-9 recommendation (annual statistics of integrated cloud liquid water content, and the parameters of their log-normal approximation) directly in binary format.")
                 println(io)
-                println(io, "It was automatically generated from the TXT files of the Part 1 annex of the ITU-R P.840-9 recommendation available at the following URL:")
+                println(io, "It was automatically generated from the TXT files of Part 1 (L_*.bin) and Part 14 (mL.bin, sL.bin, PL.bin) of the ITU-R P.840-9 recommendation available at the following URLs:")
                 println(io)
-                println(io, url)
+                println(io, annual_url)
+                println(io, lognormal_url)
                 println(io, "The matrices stored into each of the binary files corresponds to a square lat/lon grid where")
                 println(io, "- the latitude range is from -90° to 90° with a step of $(latres)°")
-                println(io, "- the longitude range is from 0° to 360° with a step of $(lonres)°")
+                println(io, "- the longitude range is from -180° to 180° with a step of $(lonres)°")
                 println(io, "- the size of the grid is $(matsize) elements")
+                println(io, "The top-left corner has negative latitude and longitude.")
+                println(io, "mL.bin and sL.bin contain NaN wherever the probability of cloud PL is below 0.02 %, where the recommendation defines no log-normal approximation.")
                 println(io)
                 println(io, "This artifact was automatically generated using the script at the following URL:")
                 println(io, permalink("p840.jl"))
             end
 
-            archive = ZipReader(read(zip_path))
-            for name in zip_names(archive)
-                endswith(lowercase(name), "txt") || throw(ArgumentError("Unexpected file type: $name"))
-                @info "converting file $name"
-                filecontent = zip_readentry(archive, name)
-                binfile = joinpath(artifact_folder, replace(name, ".TXT" => ".bin"))
-                data = readdlm(filecontent, ' ')
-                size(data) == matsize || error("Unexpected size: $(size(data)) instead of $matsize for file $name")
-                open(binfile, "w") do io
-                    write(io, data)
+            for zip_path in (annual_zip, lognormal_zip)
+                archive = ZipReader(read(zip_path))
+                for name in zip_names(archive)
+                    endswith(lowercase(name), "txt") || throw(ArgumentError("Unexpected file type: $name"))
+                    @info "Converting file $name"
+                    data = readdlm(zip_readentry(archive, name), ' ')
+                    size(data) == matsize || error("Unexpected size: $(size(data)) instead of $matsize for file $name")
+                    eltype(data) === Float64 || error("Non-numeric content in $name; check for trailing spaces")
+                    open(joinpath(artifact_folder, replace(name, ".TXT" => ".bin")), "w") do io
+                        write(io, data)
+                    end
                 end
             end
 
-            # We also add the original ITU Readme which is stored in a separate url (Part 15)
+            # The ITU readme describing every part of the digital maps is published separately as Part 15
             readme_url = "https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.840Part15-0-202308-I!!MSW-E.docx"
-            itu_readme_path = joinpath(artifact_folder, "ITU_README.docx")
-            Downloads.download(readme_url, itu_readme_path)
+            download_itu(readme_url, joinpath(artifact_folder, "ITU_README.docx"))
         end
     end
 
-
-    asset_name = "p840_2023_Part1_annual.tar.gz"
+    asset_name = "p840_annual.tar.gz"
     tarball_path = joinpath(assets_dir, asset_name)
     tarball_sha = if !isfile(tarball_path)
         @info "Creating the artifact tarball"

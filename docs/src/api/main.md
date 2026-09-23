@@ -67,6 +67,8 @@ ITUPropagationModels.ItuRP839.isothermheight
 ```@docs
 ITUPropagationModels.ItuRP840.cloudattenuation
 ITUPropagationModels.ItuRP840.liquidwatercontent
+ITUPropagationModels.ItuRP840.lognormalparameters
+ITUPropagationModels.ItuRP840.cloudattenuation_lognormal
 ```
 
 # ITU-R P.1510 - Mean Surface Temperature

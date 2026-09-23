@@ -260,3 +260,14 @@ end
     @test ItuRP837.rainfallrate(deg2rad(41.9)u"rad", 12.49u"°", 0.1) == ItuRP837.rainfallrate(ll, 0.1)
     @test ItuRP837.rainfallrate(lla, 0.1) == ItuRP837.rainfallrate(ll, 0.1)
 end
+
+@testitem "Generic inputs - P.840 log-normal" begin
+    using Unitful
+    using CoordRefSystems: LatLonAlt
+    ll = LatLon(45.3, 9.7)
+    lla = LatLonAlt(ll.lat, ll.lon, 100)
+    @test ItuRP840.lognormalparameters(lla) == ItuRP840.lognormalparameters(ll)
+    @test ItuRP840.lognormalparameters(45.3u"°", 9.7u"°") == ItuRP840.lognormalparameters(ll)
+    @test ItuRP840.cloudattenuation_lognormal(lla, 30e9u"Hz", 45u"°", 1) ≈ ItuRP840.cloudattenuation_lognormal(ll, 30, 45, 1)
+    @test ItuRP840.cloudattenuation_lognormal(45.3u"°", 9.7u"°", 30, uconvert(u"rad", 45u"°"), 1) ≈ ItuRP840.cloudattenuation_lognormal(ll, 30, 45, 1)
+end
