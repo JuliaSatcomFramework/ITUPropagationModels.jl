@@ -260,3 +260,14 @@ end
     @test ItuRP837.rainfallrate(deg2rad(41.9)u"rad", 12.49u"°", 0.1) == ItuRP837.rainfallrate(ll, 0.1)
     @test ItuRP837.rainfallrate(lla, 0.1) == ItuRP837.rainfallrate(ll, 0.1)
 end
+
+@testitem "Generic inputs - P.678" begin
+    using Unitful
+    using CoordRefSystems: LatLonAlt
+    ll = LatLon(45.25, 10.25)
+    lla = LatLonAlt(ll.lat, ll.lon, 100)
+    @test ItuRP678.climaticratio(lla) == ItuRP678.climaticratio(ll)
+    @test ItuRP678.climaticratio(45.25u"°", 10.25u"°") == ItuRP678.climaticratio(ll)
+    @test ItuRP678.interannualvariance(lla, 0.01) == ItuRP678.interannualvariance(ll, 0.01)
+    @test ItuRP678.riskofexceedance(deg2rad(45.25)u"rad", 10.25u"°", 0.01, 0.02) ≈ ItuRP678.riskofexceedance(ll, 0.01, 0.02)
+end

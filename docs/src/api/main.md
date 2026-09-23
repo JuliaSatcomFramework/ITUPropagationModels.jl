@@ -33,6 +33,14 @@ ITUPropagationModels.ItuRP618.scintillationattenuation
 ITUPropagationModels.ItuRP676.gaseousattenuation
 ```
 
+# ITU-R P.678 - Variability and Risk
+
+```@docs
+ITUPropagationModels.ItuRP678.climaticratio
+ITUPropagationModels.ItuRP678.interannualvariance
+ITUPropagationModels.ItuRP678.riskofexceedance
+```
+
 # ITU-R P.835 - Standard Atmospheres
 
 ```@docs

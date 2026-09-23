@@ -26,6 +26,7 @@ The following ITU-R Recommendations are implemented at least in part:
 *   **ITU-R P.453-14:** The radio refractive index: its formula and refractivity data
 *   **ITU-R P.618-14:** Propagation data and prediction methods required for the design of Earth-space telecommunication systems
 *   **ITU-R P.676-13:** Attenuation by atmospheric gases
+*   **ITU-R P.678-3:** Characterization of the variability of propagation phenomena and estimation of the risk associated with propagation margin (Annexes 2 and 3)
 *   **ITU-R P.835-7:** Reference Standard Atmospheres
 *   **ITU-R P.837-7:** Characteristics of precipitation for propagation modelling (rainfall rate at any exceedance probability and probability of rain)
 *   **ITU-R P.838-8:** Specific attenuation model for rain for use in prediction methods
