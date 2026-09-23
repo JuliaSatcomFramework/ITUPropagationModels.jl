@@ -54,6 +54,7 @@ const Δt = 60 # s, equation 3
 
 # Variance of estimation, Annex 2 equations 2 to 5. The autocorrelation terms decrease monotonically with i, so the sum stops once they fall below machine precision
 function _varianceofestimation(p::Real)
+    p * (1 - p) == 0 && return 0.0
     a = 0.0265
     b = -0.0396 * log(p) + 0.286
     C = 1.0
@@ -92,50 +93,55 @@ function climaticratio(latlon)
 end
 
 """
-    interannualvariance(latlon, p; warn)
-    interannualvariance(lat::Number, lon::Number, p; warn)
+    interannualvariance(latlon, p; warn, sigma2E)
+    interannualvariance(lat::Number, lon::Number, p; warn, sigma2E)
 
 Inter-annual variance of the exceedance probability `p` of a rainfall rate or rain attenuation statistic at the given location, following Annex 2 of ITU-R P.678-3. The yearly exceedance probability is normally distributed around the long-term `p` with this variance.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
   - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
-- `p`: long-term exceedance probability as a fraction, `0 ≤ p ≤ 1`. The method is applicable for `0.0001 ≤ p ≤ 0.02`; a warning is issued outside this range unless `warn = false`.
+- `p`: long-term exceedance probability as a fraction, `0 ≤ p ≤ 1`. The method is applicable for `0.0001 ≤ p ≤ 0.02`; a warning is issued outside this range unless `warn = false`. Note that `p` is a fraction here, unlike the percentages taken by `ItuRP618.rainattenuation` and `ItuRP837.rainfallrate`.
+- `warn`: Whether to warn if `p` is outside the supported range. Defaults to `!SUPPRESS_WARNINGS[]`.
+- `sigma2E`: variance of estimation (equation 5). Computed from `p` by default; it depends on `p` only, so pass a precomputed value when evaluating many locations at the same `p` (the default costs up to a few hundred thousand exponentials per call at `p` near 0.02).
 
 # Return
 A `NamedTuple` with fields
 - `sigma2`: total inter-annual variance (equation 1)
 - `sigma2C`: inter-annual climatic variance (equation 6)
 - `sigma2E`: variance of estimation (equation 5)
+
+When the long-term statistic is a predicted CCDF (for example the rain attenuation of `ItuRP618.rainattenuation`) rather than a measured one, Annex 2 (equation 7) adds the error of the prediction, ``σ²_M``, to the returned `sigma2`; that term depends on the prediction method and is not computed here.
 """
-function interannualvariance(latlon, p; warn=!SUPPRESS_WARNINGS[])
+function interannualvariance(latlon, p; warn=!SUPPRESS_WARNINGS[], sigma2E=_varianceofestimation(p))
     _checkprobability(p, "p")
     1e-4 <= p <= 2e-2 || !warn || @noinline(@warn("ItuRP678.interannualvariance is only applicable for exceedance probabilities between 0.01% and 2% (0.0001 ≤ p ≤ 0.02).\nThe given p = $p is outside this range so results may be inaccurate."))
     rc = climaticratio(latlon)
     sigma2C = (rc * p)^2
-    sigma2E = _varianceofestimation(p)
     sigma2 = sigma2C + sigma2E
     return (; sigma2, sigma2C, sigma2E)
 end
 
 """
-    riskofexceedance(latlon, p, pr; warn)
-    riskofexceedance(lat::Number, lon::Number, p, pr; warn)
+    riskofexceedance(latlon, p, pr; warn, sigma2E)
+    riskofexceedance(lat::Number, lon::Number, p, pr; warn, sigma2E)
 
 Risk, as a probability, that the yearly exceedance probability of a fixed rain attenuation is above `pr`, when its long-term exceedance probability is `p` (Annex 3 of ITU-R P.678-3, equation 8). `pr == p` gives 0.5.
 
 # Arguments
 - `latlon`: object representing latitude and longitude, must be convertible to `ITUPropagationModels.LatLon`
   - This function can also be called with separate latitude and longitude as first two arguments `lat` and `lon` as per last method in the signatures above.
-- `p`: long-term exceedance probability as a fraction, `0 ≤ p ≤ 1` (see [`interannualvariance`](@ref) for the applicable range)
+- `p`: long-term exceedance probability as a fraction, `0 ≤ p ≤ 1` (see [`interannualvariance`](@ref) for the applicable range). Note that `p` is a fraction here, unlike the percentages taken by `ItuRP618.rainattenuation` and `ItuRP837.rainfallrate`.
 - `pr`: yearly exceedance probability as a fraction, `0 ≤ pr ≤ 1`
+- `warn`, `sigma2E`: keywords forwarded to [`interannualvariance`](@ref)
 
 # Return
 - `risk::Float64`: probability that the yearly exceedance probability is above `pr`
 """
-function riskofexceedance(latlon, p, pr; warn=!SUPPRESS_WARNINGS[])
+function riskofexceedance(latlon, p, pr; kwargs...)
     _checkprobability(pr, "pr")
-    (; sigma2) = interannualvariance(latlon, p; warn)
+    pr == p && return 0.5
+    (; sigma2) = interannualvariance(latlon, p; kwargs...)
     return Q((pr - p) / sqrt(sigma2))
 end
 

@@ -44,6 +44,16 @@ end
     @test allocations(ItuRP678.interannualvariance, ll, 0.01) == 0
     @test allocations(ItuRP678.riskofexceedance, ll, 0.01, 0.02) == 0
 
+    # Endpoints of [0, 1]: both variance terms vanish at p = 0 and the variance of estimation at p = 1
+    @test ItuRP678.interannualvariance(ll, 0; warn = false) == (; sigma2 = 0.0, sigma2C = 0.0, sigma2E = 0.0)
+    @test ItuRP678.interannualvariance(ll, 1; warn = false).sigma2E == 0
+    @test ItuRP678.riskofexceedance(ll, 0, 0; warn = false) == 0.5
+    # A precomputed variance of estimation is used as given
+    sigma2E = ItuRP678._varianceofestimation(0.01)
+    @test ItuRP678.interannualvariance(ll, 0.01; sigma2E) == ItuRP678.interannualvariance(ll, 0.01)
+    @test ItuRP678.interannualvariance(ll, 0.01; sigma2E = 0.0).sigma2 == ItuRP678.interannualvariance(ll, 0.01).sigma2C
+    @test ItuRP678.riskofexceedance(ll, 0.01, 0.02; sigma2E) == ItuRP678.riskofexceedance(ll, 0.01, 0.02)
+
     @test_logs (:warn, r"between 0.01% and 2%") match_mode=:any ItuRP678.interannualvariance(ll, 0.05)
     @test_logs (:warn, r"between 0.01% and 2%") match_mode=:any ItuRP678.riskofexceedance(ll, 0.05, 0.06)
     @test_logs ItuRP678.interannualvariance(ll, 0.05; warn = false)
