@@ -12,6 +12,12 @@ attenuations
 attenuations_intermediate_terms
 ```
 
+## Loading the digital maps
+
+```@docs
+ITUPropagationModels.initialize!
+```
+
 
 # ITU-R P.453 - Refractivity
 

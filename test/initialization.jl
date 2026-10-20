@@ -1,3 +1,13 @@
+@testitem "initialize! loads models by name" begin
+    using ITUPropagationModels
+    using Test
+    ITUPropagationModels.initialize!("none")
+    ITUPropagationModels.initialize!(["P837", "P453"])
+    @test !isnothing(ItuRP837.R001_DATA.itp)
+    @test !isnothing(ItuRP453.NWET_ANNUAL.ccdf)
+    @test_throws ArgumentError ITUPropagationModels.initialize!(["P999"])
+end
+
 @testitem "P840 loads when only the mean is loaded" begin
     using ITUPropagationModels
     using Test
