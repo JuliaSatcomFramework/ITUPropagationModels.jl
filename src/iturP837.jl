@@ -46,10 +46,15 @@ end
 end
 
 const R001_DATA = RainfallRate001()
+const INIT_LOCK = ReentrantLock()
 
 function initialize!()
-    data = read!(joinpath(artifact"p837_R001", "R001.bin"), zeros(datasize))
-    R001_DATA.itp = SquareGridData(latrange, lonrange, data, "Rainfall rate exceeded 0.01% of the year")
+    isnothing(R001_DATA.itp) || return nothing
+    @lock INIT_LOCK begin
+        isnothing(R001_DATA.itp) || return nothing
+        data = read!(joinpath(artifact"p837_R001", "R001.bin"), zeros(datasize))
+        R001_DATA.itp = SquareGridData(latrange, lonrange, data, "Rainfall rate exceeded 0.01% of the year")
+    end
     return nothing
 end
 

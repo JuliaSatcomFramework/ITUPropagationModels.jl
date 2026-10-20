@@ -43,18 +43,23 @@ end
 end
 
 const ANNUAL_DATA = LiquidContentData()
+const INIT_LOCK = ReentrantLock()
 
+# Loads the data once. `ccdf` is assigned last, so a non-empty `ccdf` means all fields are loaded.
 function initialize!()
-    isnothing(ANNUAL_DATA.mean) || return nothing
-    @info "P840: Loading annual data of Integrated Liquid Water Content"
-    Lmean = read!(artifact"p840_annual/L_mean.bin", zeros(datasize))
-    ANNUAL_DATA.mean = SquareGridData(latrange, lonrange, Lmean, "Mean Integrated Liquid Water Content")
-    items = map(zip(psannual, filespsannual)) do (p, suffix)
-        data = read!(joinpath(artifact"p840_annual", "L_$(suffix).bin"), zeros(datasize))
-        name = "Integrated Liquid Water Content at $p% exceedance probability"
-        SquareGridData(latrange, lonrange, data, name)
+    isnothing(ANNUAL_DATA.ccdf) || return nothing
+    @lock INIT_LOCK begin
+        isnothing(ANNUAL_DATA.ccdf) || return nothing
+        @info "P840: Loading annual data of Integrated Liquid Water Content"
+        Lmean = read!(artifact"p840_annual/L_mean.bin", zeros(datasize))
+        items = map(zip(psannual, filespsannual)) do (p, suffix)
+            data = read!(joinpath(artifact"p840_annual", "L_$(suffix).bin"), zeros(datasize))
+            name = "Integrated Liquid Water Content at $p% exceedance probability"
+            SquareGridData(latrange, lonrange, data, name)
+        end
+        ANNUAL_DATA.mean = SquareGridData(latrange, lonrange, Lmean, "Mean Integrated Liquid Water Content")
+        ANNUAL_DATA.ccdf = SquareGridStatisticalData(psannual, items)
     end
-    ANNUAL_DATA.ccdf = SquareGridStatisticalData(psannual, items)
     return nothing
 end
 

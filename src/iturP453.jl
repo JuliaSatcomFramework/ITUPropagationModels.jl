@@ -44,16 +44,20 @@ end
 end
 
 const NWET_ANNUAL = WetTermData()
+const INIT_LOCK = ReentrantLock()
 
 function initialize!()
     isnothing(NWET_ANNUAL.ccdf) || return nothing
-    @info "P453: Loading annual data of wet term of surface refractivity"
-    items = map(zip(psannual, filespsannual)) do (p, suffix)
-        data = read!(joinpath(artifact"p453_nwet_annual", "NWET_Annual_$(suffix).bin"), zeros(datasize))
-        name = "Wet term of surface refractivity at $p% exceedance probability"
-        SquareGridData(latrange, lonrange, data, name)
+    @lock INIT_LOCK begin
+        isnothing(NWET_ANNUAL.ccdf) || return nothing
+        @info "P453: Loading annual data of wet term of surface refractivity"
+        items = map(zip(psannual, filespsannual)) do (p, suffix)
+            data = read!(joinpath(artifact"p453_nwet_annual", "NWET_Annual_$(suffix).bin"), zeros(datasize))
+            name = "Wet term of surface refractivity at $p% exceedance probability"
+            SquareGridData(latrange, lonrange, data, name)
+        end
+        NWET_ANNUAL.ccdf = SquareGridStatisticalData(psannual, items)
     end
-    NWET_ANNUAL.ccdf = SquareGridStatisticalData(psannual, items)
     return nothing
 end
 
