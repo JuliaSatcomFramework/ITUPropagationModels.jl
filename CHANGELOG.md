@@ -4,6 +4,13 @@ This file contains the changelog for the ItuRPropagation package. It follows the
 
 ## Unreleased
 
+### Added
+- `ITUPropagationModels.initialize!(models)` loads the digital maps of P.840, P.837, P.453, and P.2145 up front. Each of these modules has an `initialize!()` that loads its maps once.
+- The `preload` preference selects the maps loaded with the package: `"all"` (default), `"none"`, or a list of model names. `Preferences` is now a dependency.
+
+### Fixed
+- Loading the maps on first use is now thread-safe. Concurrent first calls to P.840 could throw `ArgumentError: No value arguments present`, and concurrent first calls to the other models loaded the same maps more than once.
+
 ## 1.1.1 - 2025-10-07
 ### Fixed
 - Fixed the computation of the intermediate terms for the `gaseousattenuation` function when the location is provided as a custom type.

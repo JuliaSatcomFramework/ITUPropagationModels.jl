@@ -68,9 +68,15 @@ The instance used by the P2145 module is stored in the `ANNUAL_DATA` constant.
 end
 
 const ANNUAL_DATA = AnnualData()
+const INIT_LOCK = ReentrantLock()
 
 # This will return the variable in the ANNUAL_DATA struct, initializing it if it is not already initialized
-getvariable(::Val{S}) where S = @something getproperty(ANNUAL_DATA, S) setproperty!(ANNUAL_DATA, S, SingleVariableData{S}())
+getvariable(::Val{S}) where S = @something getproperty(ANNUAL_DATA, S) @lock INIT_LOCK begin
+    @something getproperty(ANNUAL_DATA, S) setproperty!(ANNUAL_DATA, S, SingleVariableData{S}())
+end
+
+# Loads the data of all four variables.
+initialize!() = (foreach(S -> getvariable(Val(S)), (:T, :RHO, :P, :V)); nothing)
 
 function initialize!(nt::SingleVariableData{kind}) where kind
     # We make sure that Z_ground is also initialized
