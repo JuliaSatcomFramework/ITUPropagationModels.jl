@@ -64,7 +64,7 @@ call this to pay the load time up front, for example before starting threads.
 and `"P2145"`. A model already loaded is not loaded again.
 
 When the package loads, it calls this function with the `preload` preference, which is
-`"all"` when not set. Set it with Preferences.jl, then restart Julia:
+`"none"` when not set. Set it with Preferences.jl, then restart Julia:
 
 ```julia
 using Preferences, ITUPropagationModels
@@ -83,7 +83,7 @@ end
 function __init__()
     # Loading a downstream package during its precompilation runs this too: skip the maps there.
     ccall(:jl_generating_output, Cint, ()) == 1 && return nothing
-    initialize!(load_preference(@__MODULE__, "preload", "all"))
+    initialize!(load_preference(@__MODULE__, "preload", "none"))
 end
 
 #endregion initialization
